@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.santao.bullfight" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".core.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon_76"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity android:name=".activity.MainActivity" >
+        </activity>
+        <activity android:name=".activity.MatchFightActivity" >
+        </activity>
+        <activity android:name=".activity.NewsActivity" >
+        </activity>
+        <activity android:name=".activity.FriendActivity" >
+        </activity>
+        <activity android:name=".activity.ProfileActivity" >
+        </activity>
+        <activity android:name=".activity.LeagueFightActivity" >
+        </activity>
+        <activity android:name=".activity.NewsDetailActivity" >
+        </activity>
+        <activity android:name=".activity.RegActivity" >
+        </activity>
+        <activity android:name=".activity.LoginActivity" >
+        </activity>
+        <activity android:name=".activity.CreateMatchOneActivity" >
+        </activity>
+        <activity android:name=".activity.CreateMatchTwoActivity" >
+        </activity>
+        <activity android:name=".activity.CreateMatchThreeActivity" >
+        </activity>
+        <activity android:name=".activity.CreateMatchFourActivity" >
+        </activity>
+        <activity android:name=".activity.CreateMatchFiveActivity" >
+        </activity>
+        <activity android:name=".activity.CreateMatchTeamActivity" >
+        </activity>
+        <activity android:name=".activity.CreateMatchArenaActivity" >
+        </activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:theme="@style/FullscreenTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.MatchDetailActivity" >
+        </activity>
+        <activity android:name=".activity.RegTwoActivity" >
+        </activity>
+        <activity android:name=".activity.RegThreeActivity" >
+        </activity>
+        <activity android:name=".activity.LeagueJoinActivity" >
+        </activity>
+        <activity
+            android:name=".activity.UserDetailActivity"
+            android:label="@string/title_activity_user_detail"
+            android:theme="@style/AppTheme" >
+        </activity>
+    </application>
+
+</manifest>

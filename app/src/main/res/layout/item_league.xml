@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="240dp"
+    android:background="@color/colorAppBg"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:background="@mipmap/feed_free_match_bg"
+        android:layout_margin="10dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/imgTop"
+                android:src="@mipmap/shared_icon_badge_active"
+                android:layout_gravity="right|top"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp" />
+            <com.santao.bullfight.widget.RotateTextView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="未开始"
+                android:id="@+id/txtTop"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:layout_gravity="right|top"
+                android:textAlignment="center"
+                android:gravity="center_horizontal|top"
+                android:paddingTop="10dp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:id="@+id/imageView2"
+                android:src="@mipmap/holder"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="match_title"
+                android:id="@+id/match_title"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="match_arena"
+                android:id="@+id/match_arena"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
+                android:textSize="16dp"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView19"
+        android:src="@mipmap/feed_divider"
+        android:scaleType="fitCenter" />
+</LinearLayout>

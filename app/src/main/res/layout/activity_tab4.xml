@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.santao.bullfight.activity.ProfileActivity"
+    android:background="@color/colorAppBg"
+    android:id="@+id/mainLayout">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView3"
+            android:layout_weight="2"
+            android:src="@mipmap/profile_figure_placeholder"
+            android:padding="8dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/textView"
+                        android:textColor="#ffffff"
+                        android:textSize="24sp"
+                        android:textAlignment="textEnd"
+                        android:layout_marginRight="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="关注"
+                        android:id="@+id/textView2"
+                        android:textColor="#ffffff"
+                        android:textAlignment="textEnd"
+                        android:layout_marginRight="6dp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/imageView4"
+                    android:src="@mipmap/profile_icon_following"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/textView3"
+                        android:textColor="#ffffff"
+                        android:textSize="24sp"
+                        android:textAlignment="textEnd"
+                        android:layout_marginRight="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="粉丝"
+                        android:id="@+id/textView4"
+                        android:textColor="#ffffff"
+                        android:textAlignment="textEnd"
+                        android:layout_marginRight="6dp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/imageView5"
+                    android:src="@mipmap/profile_icon_follower"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/textView5"
+                        android:textColor="#ffffff"
+                        android:textSize="24sp"
+                        android:textAlignment="textEnd"
+                        android:layout_marginRight="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="奖杯"
+                        android:id="@+id/textView6"
+                        android:textColor="#ffffff"
+                        android:textAlignment="textEnd"
+                        android:layout_marginRight="6dp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/imageView6"
+                    android:src="@mipmap/profile_icon_award"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp" >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="城市"
+                        android:id="@+id/textView7"
+                        android:textColor="#ffffff"
+                        android:textSize="20dp"
+                        android:textAlignment="textEnd"
+                        android:layout_marginRight="6dp"
+                        android:layout_gravity="center_vertical" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/imageView7"
+                    android:src="@mipmap/profile_icon_location"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="编辑个人资料"
+                android:id="@+id/button"
+                android:background="@mipmap/activities_btn"
+                android:textColor="#ffffff"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的数据"
+                    android:id="@+id/textView8"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center_vertical"
+                    android:textAlignment="textEnd"
+                    android:layout_marginRight="6dp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView8"
+                    android:src="@mipmap/profile_icon_stats"
+                    android:scaleType="center"
+                    android:layout_gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView9"
+                    android:src="@mipmap/shared_icon_arrow_right"
+                    android:scaleType="center"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的球队"
+                    android:id="@+id/textView9"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center_vertical"
+                    android:textAlignment="textEnd"
+                    android:layout_marginRight="6dp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView10"
+                    android:src="@mipmap/profile_icon_team"
+                    android:scaleType="center"
+                    android:layout_gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView11"
+                    android:src="@mipmap/shared_icon_arrow_right"
+                    android:scaleType="center"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

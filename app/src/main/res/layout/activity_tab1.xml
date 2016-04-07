@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.santao.bullfight.activity.MatchFightActivity"
+    android:background="@color/colorAppBg">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+            android:orientation="horizontal"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <com.santao.bullfight.widget.TabButton
+                android:id="@+id/btn_left"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:text="团队约战"
+                custom:normal_bg_res="@mipmap/tab_left_1"
+                custom:selected_bg_res="@mipmap/tab_left_2"
+                custom:selected_color="@color/colorAppBgDark"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:textAlignment="center"
+                android:textColor="@color/colorAppOrange" />
+
+            <com.santao.bullfight.widget.TabButton
+                android:id="@+id/btn_center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/btn_left"
+                android:text="野球娱乐"
+                custom:normal_bg_res="@mipmap/tab_mid_1"
+                custom:selected_bg_res="@mipmap/tab_mid_2"
+                custom:selected_color="@color/colorAppBgDark"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:textAlignment="center"
+                android:textColor="@color/colorAppOrange" />
+
+            <com.santao.bullfight.widget.TabButton
+                android:id="@+id/btn_right"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/btn_center"
+                android:text="联赛竞技"
+                custom:normal_bg_res="@mipmap/tab_right_1"
+                custom:selected_bg_res="@mipmap/tab_right_2"
+                custom:selected_color="@color/colorAppBgDark"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:textAlignment="center"
+                android:textColor="@color/colorAppOrange" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/llContent">
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/imgCreate"
+        android:layout_gravity="center_horizontal|bottom"
+        android:src="@mipmap/fight_btn_add" />
+
+
+</FrameLayout>

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">来斗牛</string>
+
+
+    <string name="create_match_judge">符合以下情况请点击【无需服务】的按钮：\n1、自己的小伙伴就能吹比赛和做数据记录啦！ \n2、将赛后数据拍照并拍照发送给“来斗牛公号”录入！ \n3、数据统计表在“来斗牛公号”上回复“记录表”就有啦！ \n4、如有疑问或其他比赛要求请拨打010-82566150！</string>
+    <string name="create_match_pay">1、支付完成后，来斗牛将会打电话确认。\n2、如最后没有球队应战，来斗牛将会在48小时内退回款项。\n3、如对赛事有什么特殊需求，请拨打来斗牛客服电话010-82566150。</string>
+
+
+    <string name="sms_send">已发送验证码到手机短信，请注意查看。</string>
+    <string name="already_reg">该手机号已注册</string>
+    <string name="no_card">未找到存储卡，无法存储照片！</string>
+    <string name="reg_success">注册成功!</string>
+    <string name="login_fail">登录失败</string>
+    <string name="join_success">加入成功!</string>
+    <string name="join_fail">加入失败!</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_user_detail">UserDetailActivity</string>
+
+</resources>
