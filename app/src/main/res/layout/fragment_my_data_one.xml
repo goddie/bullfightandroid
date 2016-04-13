@@ -1,0 +1,350 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.santao.bullfight.fragment.MyDataOneFragment"
+    android:background="@color/colorAppBg"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView3"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt1"
+                        android:textColor="#ffffff"
+                        android:textSize="72sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="参赛场数"
+                        android:textSize="12sp"
+                        android:textColor="@color/colorAppFont" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt2"
+                        android:textColor="#ffffff"
+                        android:textSize="72sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="得分总数"
+                        android:textSize="12sp"
+                        android:textColor="@color/colorAppFont"
+                        android:id="@+id/textView57" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" >
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="参赛场数"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt3"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="命中率"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt4"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" >
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="8dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="罚球命中"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt5"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="三分命中率"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt6"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" >
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="8dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="场均篮板"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt7"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="场均助攻"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt8"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp" >
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="8dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="场均盖帽"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt9"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="场均抢断"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="top" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txt10"
+                        android:textColor="#ffffff"
+                        android:textSize="22sp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

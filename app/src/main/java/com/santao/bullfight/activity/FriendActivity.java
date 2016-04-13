@@ -54,7 +54,7 @@ public class FriendActivity extends BaseAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab3);
         ButterKnife.bind(this);
-
+        initTopBar();
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         adapter = new UserListAdapter(this);
@@ -132,6 +132,13 @@ public class FriendActivity extends BaseAppCompatActivity {
 
     }
 
+
+
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
+        setTitle("牛丸圈");
+    }
 
 
     private void getData() {

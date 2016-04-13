@@ -149,11 +149,23 @@ public class MatchDetailActivity extends BaseAppCompatActivity {
     @Override
     public void onTopFinish() {
         super.onTopFinish();
-
+        setTxtRight("写评论");
 
     }
 
+    @Override
+    public void onTopRightClick() {
+        super.onTopRightClick();
 
+        Intent intent = new Intent(MatchDetailActivity.this,CommetAddActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("mfid",entity.getId().toString());
+
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+    }
 
     @OnClick({ R.id.tab1, R.id.tab2, R.id.tab3, R.id.tab4})
     public void onClick(View v) {

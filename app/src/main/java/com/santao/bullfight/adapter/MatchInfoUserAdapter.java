@@ -38,25 +38,35 @@ public class MatchInfoUserAdapter extends BaseRecyclerViewAdapter {
 
         User host = (User) arr.get(0);
 
-        itemViewHolder.txt1.setText(host.getNickname());
-
-        if(!HttpUtil.isNullOrEmpty(host.getAvatar()))
+        if(host!=null)
         {
-            Picasso.with(mContext).load(HttpUtil.BASE_URL + host.getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder).into(itemViewHolder.img1);
+            itemViewHolder.txt1.setText(host.getNickname());
+
+            if(!HttpUtil.isNullOrEmpty(host.getAvatar()))
+            {
+                Picasso.with(mContext).load(HttpUtil.BASE_URL + host.getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder).into(itemViewHolder.img1);
+            }else
+            {
+                Picasso.with(mContext).load(R.mipmap.holder).transform(new CircleTransform())
+                        .into(itemViewHolder.img1);
+            }
+
         }else
         {
-            Picasso.with(mContext).load(R.mipmap.holder).transform(new CircleTransform())
-                    .into(itemViewHolder.img1);
+            itemViewHolder.txt1.setText("");
+            itemViewHolder.img1.setImageBitmap(null);
         }
 
 
-        if(arr.size()>1&&arr.get(1)!=null)
-        {
-            User guest = (User) arr.get(1);
 
+
+        User guest = (User) arr.get(1);
+
+        if(guest!=null)
+        {
             itemViewHolder.txt2.setText(guest.getNickname());
 
-            if(!HttpUtil.isNullOrEmpty(host.getAvatar()))
+            if(!HttpUtil.isNullOrEmpty(guest.getAvatar()))
             {
                 Picasso.with(mContext).load(HttpUtil.BASE_URL + guest.getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder).into(itemViewHolder.img2);
             }else
@@ -64,6 +74,10 @@ public class MatchInfoUserAdapter extends BaseRecyclerViewAdapter {
                 Picasso.with(mContext).load(R.mipmap.holder).transform(new CircleTransform())
                         .into(itemViewHolder.img2);
             }
+        }else
+        {
+            itemViewHolder.txt2.setText("");
+            itemViewHolder.img2.setImageBitmap(null);
         }
 
 

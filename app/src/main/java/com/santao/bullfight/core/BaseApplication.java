@@ -77,12 +77,34 @@ public class BaseApplication extends Application {
 
         if(loginUser==null)
         {
+
+            User user = Utils.getLocalUser(getApplicationContext());
+            if(user!=null)
+            {
+                this.loginUser = user;
+                return this.loginUser;
+            }
+
+
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(intent);
             return  null;
         }
         return this.loginUser;
+    }
+
+
+    public  Boolean isLogin()
+    {
+        User user = Utils.getLocalUser(getApplicationContext());
+
+        if(user!=null)
+        {
+            return true;
+        }
+
+        return false;
     }
 
 

@@ -3,6 +3,7 @@ package com.santao.bullfight.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -81,8 +82,7 @@ public class TopFragment extends BaseFragment {
         txtRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(topListener!=null)
-                {
+                if (topListener != null) {
                     topListener.onTopRightClick();
 
                 }
@@ -91,5 +91,52 @@ public class TopFragment extends BaseFragment {
         });
     }
 
+    public void setImgRight(int id)
+    {
+        imgRight.setImageResource(id);
+        imgRight.setVisibility(View.VISIBLE);
+        imgRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (topListener != null) {
+                    topListener.onTopRightClick();
 
+                }
+
+            }
+        });
+    }
+
+    public void setImgLeft(int id)
+    {
+        imgLeft.setImageResource(id);
+        imgLeft.setVisibility(View.VISIBLE);
+        imgLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (topListener != null) {
+                    topListener.onTopLeftClick();
+
+                }
+
+            }
+        });
+    }
+
+
+    public void setImgLeft(Bitmap img)
+    {
+        imgLeft.setImageBitmap(img);
+        imgLeft.setVisibility(View.VISIBLE);
+        imgLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (topListener != null) {
+                    topListener.onTopLeftClick();
+
+                }
+
+            }
+        });
+    }
 }

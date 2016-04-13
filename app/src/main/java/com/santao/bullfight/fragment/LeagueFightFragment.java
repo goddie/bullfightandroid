@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
 import com.santao.bullfight.activity.MatchDetailActivity;
+import com.santao.bullfight.activity.MatchDetailFinishActivity;
 import com.santao.bullfight.adapter.MatchTeamListAdpater;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
@@ -104,17 +105,48 @@ public class LeagueFightFragment extends BaseFragment {
             public void onItemClick(View view, Object id) {
 
                 MatchFight entity = (MatchFight)id;
-                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
-                //intent.putExtra("id", id.toString());
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("matchfight",entity);
+                //未接招
+                if(entity.getStatus()==0)
+                {
+                    Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
+                    //intent.putExtra("id", id.toString());
 
-                intent.putExtras(bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("matchfight",entity);
 
-                //Log.d("","id:"+id);
-                //leagueListAdapter.getArrayList().get(id);
-                startActivity(intent);
+                    intent.putExtras(bundle);
+
+                    //Log.d("","id:"+id);
+                    //leagueListAdapter.getArrayList().get(id);
+                    startActivity(intent);
+                }
+
+
+                //未开始
+                if(entity.getStatus()==1)
+                {
+
+                }
+
+
+                //已结束
+                if(entity.getStatus()==2)
+                {
+                    Intent intent = new Intent(getActivity(), MatchDetailFinishActivity.class);
+                    //intent.putExtra("id", id.toString());
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("matchfight",entity);
+
+                    intent.putExtras(bundle);
+
+                    //Log.d("","id:"+id);
+                    //leagueListAdapter.getArrayList().get(id);
+                    startActivity(intent);
+                }
+
+
             }
         });
 

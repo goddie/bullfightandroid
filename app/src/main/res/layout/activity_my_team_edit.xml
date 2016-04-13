@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.santao.bullfight.activity.CreateTeamActivity"
+    android:background="@color/colorAppBg"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/topBar"
+        android:background="@color/colorAppBgDark"></LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView2"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:id="@+id/img1"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/holder"
+                android:layout_marginTop="32dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="选择队标"
+                android:id="@+id/btn1"
+                android:background="@mipmap/shared_btn_small"
+                android:textColor="@color/colorAppFont"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="30dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:id="@+id/imageView35"
+                        android:background="@color/colorAppBg" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="球队名"
+                            android:id="@+id/textView53"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt1"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:layout_marginLeft="10dp"
+                            android:hint="请输入球队名"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="城    市"
+                            android:id="@+id/textView54"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt2"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:layout_marginLeft="10dp"
+                            android:hint="请输入城市"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="成立时间"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt3"
+                            android:layout_margin="10dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/colorAppFont"
+                            android:text="2016-01-01"
+                            android:layout_gravity="center" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="球队简介"
+                            android:id="@+id/textView55"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt4"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:hint="球队简介"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"
+                            android:maxLines="5"
+                            android:lines="4" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

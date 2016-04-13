@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
+    android:layout_height="48dp"
     android:background="@color/colorAppBgDark"
     android:orientation="horizontal">
 
@@ -16,19 +16,20 @@
             android:layout_height="wrap_content"
             android:text="返回"
             android:id="@+id/txtLeft"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/colorAppOrange"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:visibility="invisible" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:id="@+id/imgLeft"
             android:src="@mipmap/nav_btn_back"
             android:layout_gravity="center"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:scaleType="fitXY" />
 
     </FrameLayout>
 
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="来斗牛"
-        android:textSize="24dp"
+        android:textSize="18sp"
         android:textColor="#ffffff"
         android:id="@+id/txtTitle"
         android:layout_weight="4"
@@ -54,19 +55,20 @@
             android:layout_height="wrap_content"
             android:text="返回"
             android:id="@+id/txtRight"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/colorAppOrange"
             android:layout_marginRight="10dp"
             android:layout_gravity="center_vertical|right"
             android:visibility="invisible" />
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:id="@+id/imgRight"
             android:src="@mipmap/nav_btn_add"
             android:layout_gravity="center"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:scaleType="fitXY" />
     </FrameLayout>
 
 </LinearLayout>

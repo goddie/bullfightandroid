@@ -1,5 +1,7 @@
 package com.santao.bullfight.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -40,6 +42,7 @@ public class BaseAppCompatActivity extends AppCompatActivity implements TopFragm
 
         topFragment = new TopFragment();
 
+
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -59,6 +62,16 @@ public class BaseAppCompatActivity extends AppCompatActivity implements TopFragm
         topFragment.setTxtRight(txt);
     }
 
+
+    protected void setImgRight(int id)
+    {
+        topFragment.setImgRight(id);
+    }
+
+    protected void setImgLeft(int id){ topFragment.setImgLeft(id);}
+
+    protected void setImgLeft(Bitmap img) { topFragment.setImgLeft(img); }
+
     @Override
     public void onTopFinish() {
 
@@ -73,4 +86,7 @@ public class BaseAppCompatActivity extends AppCompatActivity implements TopFragm
     public void onTopLeftClick() {
 
     }
+
+
+
 }

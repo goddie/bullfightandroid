@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
 import com.santao.bullfight.activity.MatchDetailActivity;
+import com.santao.bullfight.activity.MatchWildActivity;
 import com.santao.bullfight.adapter.MatchTeamListAdpater;
 import com.santao.bullfight.adapter.MatchWildListAdapter;
 import com.santao.bullfight.core.BaseApplication;
@@ -93,7 +94,7 @@ public class MatchWildFragment extends BaseFragment {
 
                 MatchFight entity = (MatchFight)id;
 
-                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
+                Intent intent = new Intent(getActivity(), MatchWildActivity.class);
                 //intent.putExtra("id", id.toString());
 
                 Bundle bundle=new Bundle();

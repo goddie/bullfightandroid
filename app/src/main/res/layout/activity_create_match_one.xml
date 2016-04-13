@@ -12,7 +12,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="48dp"
             android:id="@+id/topBar"
             android:background="@color/colorAppBgDark"></LinearLayout>
 
@@ -44,8 +44,8 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:id="@+id/imgClose"
             android:src="@mipmap/shared_btn_cancel"
             android:layout_gravity="center_horizontal|bottom" />

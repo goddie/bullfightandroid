@@ -87,6 +87,8 @@ public class LoginActivity extends BaseAppCompatActivity {
     {
         String url = HttpUtil.getAbsoluteUrl("user/json/login?username=" + username+"&password="+password);
 
+        Log.d("login",url);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

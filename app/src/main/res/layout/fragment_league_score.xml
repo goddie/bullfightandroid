@@ -25,7 +25,7 @@
                 android:text="球队"
                 android:id="@+id/textView14"
                 android:textColor="#ffffff"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textAlignment="center"
                 android:layout_gravity="center_vertical" />
         </LinearLayout>
@@ -36,7 +36,7 @@
             android:text="W"
             android:id="@+id/textView25"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_gravity="center_vertical" />
@@ -47,7 +47,7 @@
             android:text="L"
             android:id="@+id/textView26"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_gravity="center_vertical" />
@@ -58,7 +58,7 @@
             android:text="总分"
             android:id="@+id/textView27"
             android:textColor="@color/colorAppOrange"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_gravity="center_vertical" />

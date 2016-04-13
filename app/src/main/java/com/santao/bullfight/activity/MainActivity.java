@@ -23,6 +23,7 @@ import com.santao.bullfight.adapter.ContentAdapter;
 import com.santao.bullfight.R;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.core.UpdateChecker;
+import com.santao.bullfight.model.User;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -68,7 +69,7 @@ public class MainActivity extends BaseAppCompatActivity implements OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initTopBar();
+        //initTopBar();
 
 
         manager = new LocalActivityManager(this , true);
@@ -144,28 +145,38 @@ public class MainActivity extends BaseAppCompatActivity implements OnClickListen
     @Override
     public void onClick(View v) {
         // 在每次点击后将所有的底部按钮(ImageView,TextView)颜色改为灰色，然后根据点击着色
-        restartBotton();
+
         // ImageView和TetxView置为绿色，页面随之跳转
         switch (v.getId()) {
             case R.id.ll_tab1:
+                restartBotton();
                 iv_tab1.setImageResource(R.mipmap.tab_icon_match_active);
                 tv_tab1.setTextColor(getResources().getColor(R.color.colorAppOrange));
                 viewPager.setCurrentItem(0);
 
                 break;
             case R.id.ll_tab2:
+                restartBotton();
                 iv_tab2.setImageResource(R.mipmap.tab_icon_news_active);
                 tv_tab2.setTextColor(getResources().getColor(R.color.colorAppOrange));
                 viewPager.setCurrentItem(1);
 
                 break;
             case R.id.ll_tab3:
+                restartBotton();
                 iv_tab3.setImageResource(R.mipmap.tab_icon_activities_active);
                 tv_tab3.setTextColor(getResources().getColor(R.color.colorAppOrange));
                 viewPager.setCurrentItem(2);
 
                 break;
             case R.id.ll_tab4:
+
+                User user = baseApplication.getLoginUser();
+                if(user==null)
+                {
+                    return;
+                }
+                restartBotton();
                 iv_tab4.setImageResource(R.mipmap.tab_icon_profile_active);
                 tv_tab4.setTextColor(getResources().getColor(R.color.colorAppOrange));
                 viewPager.setCurrentItem(3);
@@ -206,25 +217,34 @@ public class MainActivity extends BaseAppCompatActivity implements OnClickListen
 
     @Override
     public void onPageSelected(int arg0) {
-        restartBotton();
+
         //当前view被选择的时候,改变底部菜单图片，文字颜色
         switch (arg0) {
             case 0:
+                restartBotton();
                 iv_tab1.setImageResource(R.mipmap.tab_icon_match_active);
                 tv_tab1.setTextColor(getResources().getColor(R.color.colorAppOrange));
 
                 break;
             case 1:
+                restartBotton();
                 iv_tab2.setImageResource(R.mipmap.tab_icon_news_active);
                 tv_tab2.setTextColor(getResources().getColor(R.color.colorAppOrange));
 
                 break;
             case 2:
+                restartBotton();
                 iv_tab3.setImageResource(R.mipmap.tab_icon_activities_active);
                 tv_tab3.setTextColor(getResources().getColor(R.color.colorAppOrange));
 
                 break;
             case 3:
+                User user = baseApplication.getLoginUser();
+                if(user==null)
+                {
+                    return;
+                }
+                restartBotton();
                 //Log.d("", "--------- onPageSelected");
                 iv_tab4.setImageResource(R.mipmap.tab_icon_profile_active);
                 tv_tab4.setTextColor(getResources().getColor(R.color.colorAppOrange));

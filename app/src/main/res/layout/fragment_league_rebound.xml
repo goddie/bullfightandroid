@@ -17,7 +17,7 @@
             android:text="球员"
             android:id="@+id/textView14"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_weight="2"
             android:textAlignment="center"
             android:layout_gravity="center_vertical" />
@@ -28,7 +28,7 @@
             android:text="场次"
             android:id="@+id/textView25"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_gravity="center_vertical" />
@@ -39,7 +39,7 @@
             android:text="总数"
             android:id="@+id/textView26"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_gravity="center_vertical" />
@@ -50,7 +50,7 @@
             android:text="场均"
             android:id="@+id/textView27"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_gravity="center_vertical" />

@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.santao.bullfight.R;
+import com.santao.bullfight.model.MatchFight;
+import com.santao.bullfight.model.User;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CreateMatchOneActivity extends BaseAppCompatActivity {
+
+
+    private MatchFight matchFight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +22,12 @@ public class CreateMatchOneActivity extends BaseAppCompatActivity {
         setContentView(R.layout.activity_create_match_one);
 
         ButterKnife.bind(this);
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null && bundle.containsKey("matchFight")) {
+            matchFight = (MatchFight)bundle.getSerializable("matchFight");
+        }
+
     }
 
 
@@ -39,9 +50,31 @@ public class CreateMatchOneActivity extends BaseAppCompatActivity {
         if(v.getId()==R.id.img1)
         {
             Intent intent = new Intent(CreateMatchOneActivity.this, CreateMatchTwoActivity.class);
+
+            matchFight.setMatchType(1);
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("matchFight", matchFight);
+
+            intent.putExtras(bundle);
+
             startActivity(intent);
+
+
         }
 
+
+        if(v.getId()==R.id.img2)
+        {
+            Intent intent = new Intent(CreateMatchOneActivity.this, CreateMatchThreeActivity.class);
+            matchFight.setMatchType(2);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("matchFight",matchFight);
+
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+        }
 
     }
 }

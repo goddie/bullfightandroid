@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -89,76 +90,85 @@ public class MatchInfoTeamFragment extends BaseFragment {
 
         ArrayList<Object> list = new ArrayList<Object>();
 
+        DecimalFormat df = new DecimalFormat("0.0");
+
+
         Team host = entity.getHost();
         Team guest = entity.getGuest();
 
+
+        if(host==null && guest==null)
+        {
+            return;
+        }
+
         ArrayList<String> li =new ArrayList<String>();
-        li.add(String.valueOf(host.getPlayCount()));
+        li.add(String.valueOf(df.format(host.getPlayCount())));
         li.add("历史战绩");
         if(guest==null)
         {
             li.add("");
         }else {
-            li.add(String.valueOf(guest.getPlayCount()));
+            li.add(String.valueOf(df.format(guest.getPlayCount())));
         }
         list.add(li);
 
 
         li =new ArrayList<String>();
-        li.add(String.valueOf(host.getScoring()));
+        li.add(String.valueOf(df.format(host.getScoring())));
         li.add("场均得分");
         if(guest==null)
         {
             li.add("");
         }else {
-            li.add(String.valueOf(guest.getScoring()));
+            li.add(String.valueOf(df.format(guest.getScoring())));
         }
         list.add(li);
 
 
         li =new ArrayList<String>();
-        li.add(String.valueOf(host.getRebound()));
+        li.add(String.valueOf(df.format(host.getRebound())));
         li.add("场均篮板");
         if(guest==null)
         {
             li.add("");
         }else {
-            li.add(String.valueOf(guest.getRebound()));
+            li.add(String.valueOf(df.format(guest.getRebound())));
         }
         list.add(li);
 
         li =new ArrayList<String>();
-        li.add(String.valueOf(host.getAssist()));
+        li.add(String.valueOf(df.format(host.getAssist())));
         li.add("场均助攻");
         if(guest==null)
         {
             li.add("");
         }else {
-            li.add(String.valueOf(guest.getAssist()));
+            li.add(String.valueOf(df.format(guest.getAssist())));
         }
         list.add(li);
 
 
         li =new ArrayList<String>();
-        li.add(String.valueOf(host.getTurnover()));
+        li.add(String.valueOf(df.format(host.getTurnover())));
         li.add("场均失误");
         if(guest==null)
         {
             li.add("");
         }else {
-            li.add(String.valueOf(guest.getTurnover()));
+            li.add(String.valueOf(df.format(guest.getTurnover())));
         }
         list.add(li);
 
 
         li =new ArrayList<String>();
-        li.add(String.valueOf(host.getBlock()));
+        li.add(String.valueOf(df.format(host.getBlock())));
         li.add("场均盖帽");
         if(guest==null)
         {
             li.add("");
         }else {
-            li.add(String.valueOf(guest.getBlock()));
+            li.add(String.valueOf(df.format(guest.getBlock())));
         }
         list.add(li);
 

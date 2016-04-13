@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
+import com.santao.bullfight.adapter.LeagueAssistAdapter;
 import com.santao.bullfight.adapter.LeagueTotalAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
@@ -46,7 +47,7 @@ public class LeagueAssistFragment extends BaseFragment {
     private boolean isLoadingMore = false;
 
 
-    private LeagueTotalAdapter adpater;
+    private LeagueAssistAdapter adpater;
     private String leagueid=null;
 
     @Override
@@ -66,7 +67,7 @@ public class LeagueAssistFragment extends BaseFragment {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-        adpater = new LeagueTotalAdapter(getActivity());
+        adpater = new LeagueAssistAdapter(getActivity());
         recyclerView.setAdapter(adpater);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -118,7 +119,7 @@ public class LeagueAssistFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new LeagueTotalAdapter(getActivity());
+                adpater = new LeagueAssistAdapter(getActivity());
                 recyclerView.setAdapter(adpater);
                 getData();
 

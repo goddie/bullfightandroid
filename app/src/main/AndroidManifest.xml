@@ -3,6 +3,9 @@
     package="com.santao.bullfight" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application
         android:name=".core.BaseApplication"
@@ -66,6 +69,44 @@
             android:name=".activity.UserDetailActivity"
             android:label="@string/title_activity_user_detail"
             android:theme="@style/AppTheme" >
+        </activity>
+        <activity android:name=".activity.ConfigActivity" >
+        </activity>
+        <activity android:name=".activity.MyDataActivity" >
+        </activity>
+        <activity android:name=".activity.MyTeamActivity" >
+        </activity>
+        <activity android:name=".activity.NoticeActivity" >
+        </activity>
+        <activity android:name=".activity.CreateTeamActivity" >
+        </activity>
+        <activity android:name=".activity.MyInfoActivity" >
+        </activity>
+        <activity android:name=".activity.MatchDetailFinishActivity" >
+        </activity>
+        <activity android:name=".activity.TeamDetailActivity" >
+        </activity>
+        <activity android:name=".activity.MyTeamEditActivity" >
+        </activity>
+        <activity android:name=".activity.MyTeamMemberActivity" >
+        </activity>
+        <activity android:name=".activity.TeamMemberAddActivity" >
+        </activity>
+        <activity android:name=".activity.MyTeamChangeActivity" >
+        </activity>
+        <activity android:name=".activity.AccountActivity" >
+        </activity>
+        <activity android:name=".activity.AboutActivity" >
+        </activity>
+        <activity android:name=".activity.FeedbackActivity" >
+        </activity>
+        <activity android:name=".activity.PasswordOneActivity" >
+        </activity>
+        <activity android:name=".activity.MatchWildActivity" >
+        </activity>
+        <activity android:name=".activity.CommetAddActivity" >
+        </activity>
+        <activity android:name=".activity.CommetListActivity" >
         </activity>
     </application>
 

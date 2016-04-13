@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.santao.bullfight.activity.ProfileActivity"
     android:background="@color/colorAppBg"
-    android:id="@+id/mainLayout">
+    android:id="@+id/mainLayout"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/topBar"
+        android:background="@color/colorAppBgDark"></LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -163,7 +174,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="城市"
-                        android:id="@+id/textView7"
+                        android:id="@+id/txt4"
                         android:textColor="#ffffff"
                         android:textSize="20dp"
                         android:textAlignment="textEnd"
@@ -184,7 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="编辑个人资料"
-                android:id="@+id/button"
+                android:id="@+id/btn1"
                 android:background="@mipmap/activities_btn"
                 android:textColor="#ffffff"
                 android:textSize="16dp" />
@@ -193,7 +204,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:id="@+id/btn2">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -228,7 +240,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="8dp" >
+                android:layout_marginTop="8dp"
+                android:id="@+id/btn3">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -263,4 +276,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

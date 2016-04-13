@@ -33,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.Bind;
 
@@ -80,7 +81,7 @@ public class MatchInfoUserFragment extends BaseFragment {
                 //Log.d("", "newState:" + newState + " " + adpater.getItemCount());
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adpater.getItemCount()) {
-                    getData();
+                    //getData();
                 }
 
             }
@@ -100,19 +101,19 @@ public class MatchInfoUserFragment extends BaseFragment {
             @Override
             public void onItemClick(View view, Object id) {
 
-                MatchFight entity = (MatchFight)id;
-
-                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
-
-                Bundle mBundle = new Bundle();
-                mBundle.putSerializable("matchfight",entity);
-
-                intent.putExtras(mBundle);
-
-
-                //Log.d("","id:"+id);
-                //leagueListAdapter.getArrayList().get(id);
-                startActivity(intent);
+//                MatchFight entity = (MatchFight)id;
+//
+//                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
+//
+//                Bundle mBundle = new Bundle();
+//                mBundle.putSerializable("matchfight",entity);
+//
+//                intent.putExtras(mBundle);
+//
+//
+//                //Log.d("","id:"+id);
+//                //leagueListAdapter.getArrayList().get(id);
+//                startActivity(intent);
             }
         });
 
@@ -145,6 +146,11 @@ public class MatchInfoUserFragment extends BaseFragment {
         Bundle bundle=intent.getExtras();
         MatchFight entity = (MatchFight)bundle.getSerializable("matchfight");
 
+        if(entity.getHost()==null)
+        {
+            return;
+        }
+
         String hostid = entity.getHost().getId().toString();
         String guestid = "";
         if(entity.getGuest()!=null)
@@ -164,30 +170,61 @@ public class MatchInfoUserFragment extends BaseFragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONArray jsonArray2 = jsonArray.getJSONArray(i);
-
-                        ArrayList<User> arr = new ArrayList<>();
-
-                        if(jsonArray2==null || jsonArray2.length()==0)
-                        {
-                            continue;
-                        }
-
-                        User host = gson.fromJson(jsonArray2.get(0).toString(),User.class);
-                        arr.add(host);
-
-                        if(jsonArray2.length()>1&&jsonArray2.get(1)!=null)
-                        {
-                            User guest = gson.fromJson(jsonArray2.get(0).toString(),User.class);
-                            arr.add(guest);
-                        }
 
 
+                    JSONArray subArr1 = jsonArray.getJSONArray(0);
+                    JSONArray subArr2 = jsonArray.getJSONArray(1);
 
-                        list.add(arr);
+
+                    ArrayList<User> arr1 = new ArrayList<>();
+                    ArrayList<User> arr2 = new ArrayList<>();
+
+                    for (int i=0;i<subArr1.length();i++)
+                    {
+                        User entity = gson.fromJson(subArr1.get(i).toString(),User.class);
+                        arr1.add(entity);
                     }
+
+                    for (int j=0;j<subArr2.length();j++)
+                    {
+                        User entity = gson.fromJson(subArr2.get(j).toString(), User.class);
+                        arr2.add(entity);
+                    }
+
+
+
+                    int s = Math.min(arr1.size(),arr2.size());
+
+
+                    for (int i=0;i<s;i++)
+                    {
+                        ArrayList<Object> tmp = new ArrayList<Object>();
+
+                        tmp.add(arr1.get(i));
+                        tmp.add(arr2.get(i));
+
+                        list.add(tmp);
+                    }
+
+                    if(arr1.size()>arr2.size())
+                    {
+                        ArrayList<Object> tmp = new ArrayList<Object>();
+                        tmp.add(arr1.get(arr1.size()-1));
+                        tmp.add(null);
+                        list.add(tmp);
+
+                    }
+
+                    if(arr1.size()<arr2.size())
+                    {
+                        ArrayList<Object> tmp = new ArrayList<Object>();
+                        tmp.add(null);
+                        tmp.add(arr2.get(arr2.size()-1));
+                        list.add(tmp);
+                    }
+
+
+
                     adpater.addArrayList(list);
                     isLoadingMore = false;
                     page = page + 1;

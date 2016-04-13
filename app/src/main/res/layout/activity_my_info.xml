@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.santao.bullfight.activity.CreateTeamActivity"
+    android:background="@color/colorAppBg"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/topBar"
+        android:background="@color/colorAppBgDark"></LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView2"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:id="@+id/img1"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/signup_avatar_placeholder"
+                android:layout_marginTop="32dp" />
+
+            <Button
+                android:layout_width="96dp"
+                android:layout_height="28dp"
+                android:text="选择头像"
+                android:id="@+id/btn1"
+                android:background="@mipmap/shared_btn_small"
+                android:textColor="@color/colorAppFont"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginTop="16dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="30dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:id="@+id/imageView35"
+                        android:background="@color/colorAppBg" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="昵    称"
+                            android:id="@+id/textView53"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt1"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:layout_marginLeft="10dp"
+                            android:hint="请输入昵称"
+                            android:textSize="14sp"
+                            android:textAlignment="textEnd" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="出生日期"
+                            android:id="@+id/textView54"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="选择生日"
+                            android:id="@+id/txt2"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont"
+                            android:layout_marginLeft="10dp"
+                            android:textAlignment="textEnd"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="所在地区"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt3"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:layout_marginLeft="10dp"
+                            android:hint="请输入所在地区"
+                            android:textSize="14sp"
+                            android:textAlignment="textEnd" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="球    龄"
+                            android:id="@+id/textView56"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt4"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:layout_marginLeft="10dp"
+                            android:hint="您的球龄"
+                            android:textSize="14sp"
+                            android:textAlignment="textEnd"
+                            android:inputType="number" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="身高(cm)"
+                            android:id="@+id/textView58"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt5"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:layout_marginLeft="10dp"
+                            android:hint="请输入身高"
+                            android:textSize="14sp"
+                            android:textAlignment="textEnd"
+                            android:inputType="number" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="体重(kg)"
+                            android:id="@+id/textView59"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt6"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:layout_marginLeft="10dp"
+                            android:hint="请输入体重"
+                            android:textSize="14sp"
+                            android:textAlignment="textEnd"
+                            android:inputType="number" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:text="擅长位置"
+                            android:id="@+id/textView60"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:textColor="@color/colorAppFont" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt7"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="@color/colorAppFont"
+                            android:singleLine="true"
+                            android:layout_marginLeft="10dp"
+                            android:hint="您擅长的位置"
+                            android:textSize="14sp"
+                            android:textAlignment="textEnd" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

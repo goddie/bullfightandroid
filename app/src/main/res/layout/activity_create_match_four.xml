@@ -12,7 +12,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="48dp"
             android:id="@+id/topBar"
             android:background="@color/colorAppBgDark"></LinearLayout>
         <TextView
@@ -23,7 +23,8 @@
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -35,33 +36,39 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="1位"
                 android:id="@+id/img11"
                 android:background="@mipmap/shared_selector_inactive"
                 android:layout_weight="1"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="2位"
                 android:id="@+id/img12"
                 android:layout_weight="1"
                 android:background="@mipmap/shared_selector_inactive"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="3位"
                 android:id="@+id/img13"
                 android:layout_weight="1"
                 android:background="@mipmap/shared_selector_inactive"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
         </LinearLayout>
 
         <TextView
@@ -72,7 +79,8 @@
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -84,43 +92,51 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="1位"
                 android:id="@+id/img21"
                 android:background="@mipmap/shared_selector_inactive"
                 android:layout_weight="1"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="2位"
                 android:id="@+id/img22"
                 android:layout_weight="1"
                 android:background="@mipmap/shared_selector_inactive"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="3位"
                 android:id="@+id/img23"
                 android:layout_weight="1"
                 android:background="@mipmap/shared_selector_inactive"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="16sp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView31"
-            android:layout_margin="10dp"
             android:textSize="14sp"
             android:textColor="#ffffff"
-            android:text="@string/create_match_judge" />
+            android:text="@string/create_match_judge"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -130,7 +146,8 @@
             android:background="@mipmap/shared_btn_small"
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textSize="14sp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -140,6 +157,7 @@
             android:background="@mipmap/shared_btn_small"
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>

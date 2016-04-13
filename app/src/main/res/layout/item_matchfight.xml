@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="200dp"
     android:background="@color/colorAppBg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/container"
+    android:descendantFocusability="afterDescendants">
 
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp">
 
         <FrameLayout
@@ -17,30 +19,30 @@
             android:layout_gravity="right|top">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:id="@+id/imgTop"
                 android:layout_gravity="right|top"
                 android:src="@mipmap/shared_icon_badge_active" />
 
             <com.santao.bullfight.widget.RotateTextView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:text="未开始"
                 android:id="@+id/txtTop"
                 android:textColor="#ffffff"
-                android:textSize="14sp"
+                android:textSize="11sp"
                 android:layout_gravity="top"
                 android:textAlignment="center"
                 android:gravity="center_horizontal|top"
-                android:paddingTop="10dp" />
+                android:paddingTop="7dp" />
 
         </FrameLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="150dp">
 
             <TextView
                 android:layout_width="260dp"
@@ -48,8 +50,8 @@
                 android:id="@+id/txtTitle"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:layout_marginTop="15dp"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
                 android:lines="1"
                 android:layout_gravity="center_horizontal" />
 
@@ -74,11 +76,14 @@
                     android:layout_weight="3">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
                         android:id="@+id/img1"
                         android:layout_gravity="right"
-                        android:src="@mipmap/holder" />
+                        android:src="@mipmap/holder"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:clickable="true" />
 
                     <TextView
                         android:layout_width="70dp"
@@ -106,7 +111,7 @@
                         android:text="110:110"
                         android:id="@+id/txtScore"
                         android:textColor="#ffffff"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="16dp"
                         android:layout_weight="0.73" />
@@ -124,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:text="5"
                             android:id="@+id/txtNo1"
-                            android:textSize="16sp"
+                            android:textSize="20sp"
                             android:textColor="@color/colorAppOrange"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="2"
@@ -135,7 +140,7 @@
                             android:layout_height="wrap_content"
                             android:text="VS"
                             android:id="@+id/textView15"
-                            android:textSize="16sp"
+                            android:textSize="20sp"
                             android:textColor="#ffffff"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
@@ -148,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:text="5"
                             android:id="@+id/txtNo2"
-                            android:textSize="16sp"
+                            android:textSize="20sp"
                             android:textColor="@color/colorAppOrange"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="2" />
@@ -163,11 +168,14 @@
                     android:layout_weight="3">
 
                     <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
                         android:id="@+id/img2"
                         android:src="@mipmap/holder"
-                        android:layout_gravity="left" />
+                        android:layout_gravity="left"
+                        android:focusable="true"
+                        android:focusableInTouchMode="false"
+                        android:clickable="true" />
 
                     <TextView
                         android:layout_width="70dp"

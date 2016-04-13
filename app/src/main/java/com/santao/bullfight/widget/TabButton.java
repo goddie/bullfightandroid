@@ -15,6 +15,7 @@ public class TabButton extends Button {
     private int normal_bg_res;
     private int selected_bg_res;
     private ColorStateList selectedColor;
+    private ColorStateList normalColor;
 
     public TabButton(Context context) {
         super(context);
@@ -27,6 +28,7 @@ public class TabButton extends Button {
         normal_bg_res = typeArray.getResourceId(R.styleable.TabButton_normal_bg_res, 0);
         selected_bg_res = typeArray.getResourceId(R.styleable.TabButton_selected_bg_res, 0);
         selectedColor = typeArray.getColorStateList(R.styleable.TabButton_selected_color);
+        normalColor = getTextColors();
 
         typeArray.recycle();
 
@@ -45,7 +47,7 @@ public class TabButton extends Button {
             setTextColor(selectedColor);
         } else {
             setBackgroundResource(normal_bg_res);
-            setTextColor(getTextColors());
+            setTextColor(normalColor);
         }
     }
 

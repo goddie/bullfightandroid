@@ -13,7 +13,7 @@
         android:id="@+id/txt1"
         android:layout_weight="2"
         android:textColor="@color/colorAppFont"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:layout_margin="10dp" />
 
     <TextView
@@ -23,6 +23,6 @@
         android:id="@+id/txt2"
         android:layout_weight="1"
         android:textColor="#ffffff"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:layout_margin="10dp" />
 </LinearLayout>

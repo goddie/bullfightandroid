@@ -1,0 +1,358 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.santao.bullfight.fragment.MatchInfoTeamFinishFragment"
+    android:background="@color/colorAppBgLight"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0%"
+                android:id="@+id/txt1"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="战"
+                android:id="@+id/textView83"
+                android:textSize="14dp"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0%"
+                android:id="@+id/txt2"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="胜"
+                android:id="@+id/textView84"
+                android:textSize="14dp"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="2dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="历史战绩"
+            android:id="@+id/textView81"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center_vertical" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%"
+                    android:id="@+id/txt3"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="战"
+                    android:id="@+id/textView86"
+                    android:textSize="14dp"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0%"
+                    android:id="@+id/txt4"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textColor="#ffffff" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="胜"
+                    android:id="@+id/textView88"
+                    android:textSize="14dp"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt11"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="投篮命中率"
+            android:id="@+id/textView63"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt12"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt21"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="罚球命中率"
+            android:id="@+id/textView66"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt22"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt31"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="三分命中率"
+            android:id="@+id/textView69"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt32"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt41"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="篮板"
+            android:id="@+id/textView72"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt42"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt51"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="助攻"
+            android:id="@+id/textView75"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt52"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt61"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="抢断"
+            android:id="@+id/textView78"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            android:id="@+id/txt62"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+</LinearLayout>

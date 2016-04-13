@@ -68,7 +68,7 @@ public class NewsActivity extends BaseAppCompatActivity {
         setContentView(R.layout.activity_tab2);
         ButterKnife.bind(this);
 
-
+        initTopBar();
 
         fragment1 = new NewsFragment();
         fragment2 = new NewsFragment();
@@ -108,6 +108,11 @@ public class NewsActivity extends BaseAppCompatActivity {
 
 
 
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
+        setTitle("新闻");
+    }
 
     @OnClick({ R.id.btn_left, R.id.btn_right, R.id.btn_center })
     public void onClick(View v) {

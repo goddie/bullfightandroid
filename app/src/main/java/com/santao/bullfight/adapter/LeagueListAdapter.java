@@ -41,11 +41,18 @@ public class LeagueListAdapter extends BaseRecyclerViewAdapter {
                 .into(itemViewHolder.icon);
 
 
+        if(entity.getStatus()==0)
+        {
+
+            itemViewHolder.txtTop.setText("未开始");
+            itemViewHolder.imgTop.setImageResource(R.mipmap.shared_icon_badge_active);
+        }
+
         //未开始
         if(entity.getStatus()==1)
         {
 
-            itemViewHolder.txtTop.setText("未开始");
+            itemViewHolder.txtTop.setText("未结束");
             itemViewHolder.imgTop.setImageResource(R.mipmap.shared_icon_badge_active);
         }
 

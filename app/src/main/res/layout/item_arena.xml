@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     android:background="@color/colorAppBg">
 
     <LinearLayout
@@ -14,14 +14,17 @@
             android:layout_height="wrap_content"
             android:text="场地名"
             android:id="@+id/txtName"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="#ffffff"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView14"
-            android:src="@mipmap/shared_icon_arrow_right" />
+            android:src="@mipmap/shared_icon_arrow_right"
+            android:scaleType="fitXY"
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
 </LinearLayout>

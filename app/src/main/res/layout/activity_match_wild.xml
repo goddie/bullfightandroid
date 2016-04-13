@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    tools:context="com.santao.bullfight.activity.MatchDetailActivity"
+    android:orientation="vertical"
+    android:background="@color/colorAppBg">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/topBar"
+        android:background="@color/colorAppBgDark"></LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="野球娱乐场"
+            android:id="@+id/textView62"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="报名人数"
+            android:id="@+id/txt1"
+            android:textSize="12sp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:id="@+id/imageView20" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="报名"
+            android:id="@+id/btn1"
+            android:background="@mipmap/shared_btn_small"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp"
+            android:layout_marginBottom="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.santao.bullfight.widget.TabButton
+                android:id="@+id/tab1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:text="比赛信息"
+                custom:normal_bg_res="@mipmap/tab_center_normal"
+                custom:selected_bg_res="@mipmap/tab_center_selected"
+                custom:selected_color="#ffffff"
+                android:textSize="14sp"
+
+                android:textColor="@color/colorAppFont"
+                android:layout_weight="1" />
+
+            <com.santao.bullfight.widget.TabButton
+                android:id="@+id/tab2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tab1"
+                android:text="用户评论"
+                custom:normal_bg_res="@mipmap/tab_center_normal"
+                custom:selected_bg_res="@mipmap/tab_center_selected"
+                custom:selected_color="#ffffff"
+                android:textSize="14sp"
+                android:textColor="@color/colorAppFont"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorAppBgLight"
+            android:id="@+id/llContent"></LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

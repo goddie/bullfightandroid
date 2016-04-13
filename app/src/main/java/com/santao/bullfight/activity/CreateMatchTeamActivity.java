@@ -63,7 +63,7 @@ public class CreateMatchTeamActivity extends BaseAppCompatActivity {
             @Override
             public void onItemClick(View view, Object tag) {
 
-                TeamEvent event = new TeamEvent();
+                TeamEvent event = new TeamEvent(TeamEvent.TEAM_SELECTED);
                 event.setData(tag);
                 EventBus.getDefault().post(event);
 

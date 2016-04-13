@@ -1,13 +1,16 @@
 package com.santao.bullfight.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -16,10 +19,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
 import com.santao.bullfight.activity.MatchDetailActivity;
+import com.santao.bullfight.activity.MatchDetailFinishActivity;
+import com.santao.bullfight.activity.TeamDetailActivity;
 import com.santao.bullfight.adapter.MatchTeamListAdpater;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.event.MatchFightEvent;
+import com.santao.bullfight.event.MemberEvent;
+import com.santao.bullfight.event.TeamEvent;
 import com.santao.bullfight.model.MatchFight;
+import com.santao.bullfight.model.Team;
+import com.santao.bullfight.model.User;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
 
 import org.json.JSONArray;
@@ -29,6 +39,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 
 public class MatchTeamFragment extends BaseFragment {
@@ -44,7 +55,11 @@ public class MatchTeamFragment extends BaseFragment {
     private boolean isLoadingMore = false;
 
 
-    private MatchTeamListAdpater adpater;
+    private MatchTeamListAdpater adapter;
+
+
+
+    private int status = -1;
 
     @Override
     public int getContentViewId() {
@@ -54,10 +69,12 @@ public class MatchTeamFragment extends BaseFragment {
     @Override
     protected void initAllMembersView(Bundle savedInstanceState) {
 
+        EventBus.getDefault().register(this);
+
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-        adpater = new MatchTeamListAdpater(getActivity());
-        recyclerView.setAdapter(adpater);
+        adapter = new MatchTeamListAdpater(getActivity());
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -71,7 +88,7 @@ public class MatchTeamFragment extends BaseFragment {
 
                 //Log.d("", "newState:" + newState + " " + adpater.getItemCount());
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adpater.getItemCount()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
                     getData();
                 }
 
@@ -87,24 +104,56 @@ public class MatchTeamFragment extends BaseFragment {
             }
         });
 
-        adpater.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+
+
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
 
             @Override
             public void onItemClick(View view, Object id) {
 
-                MatchFight entity = (MatchFight)id;
+                MatchFight entity = (MatchFight) id;
 
-                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
+                //未接招
+                if(entity.getStatus()==0)
+                {
+                    Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
+                    //intent.putExtra("id", id.toString());
 
-                Bundle mBundle = new Bundle();
-                mBundle.putSerializable("matchfight",entity);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("matchfight",entity);
 
-                intent.putExtras(mBundle);
+                    intent.putExtras(bundle);
+
+                    //Log.d("","id:"+id);
+                    //leagueListAdapter.getArrayList().get(id);
+                    startActivity(intent);
+                }
 
 
-                //Log.d("","id:"+id);
-                //leagueListAdapter.getArrayList().get(id);
-                startActivity(intent);
+                //未开始
+                if(entity.getStatus()==1)
+                {
+
+                }
+
+
+                //已结束
+                if(entity.getStatus()==2)
+                {
+                    Intent intent = new Intent(getActivity(), MatchDetailFinishActivity.class);
+                    //intent.putExtra("id", id.toString());
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("matchfight",entity);
+
+                    intent.putExtras(bundle);
+
+                    //Log.d("","id:"+id);
+                    //leagueListAdapter.getArrayList().get(id);
+                    startActivity(intent);
+                }
+
+
             }
         });
 
@@ -115,8 +164,8 @@ public class MatchTeamFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new MatchTeamListAdpater(getActivity());
-                recyclerView.setAdapter(adpater);
+                adapter = new MatchTeamListAdpater(getActivity());
+                recyclerView.setAdapter(adapter);
                 getData();
 
             }
@@ -130,11 +179,24 @@ public class MatchTeamFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onDestroyView() {
+
+        super.onDestroyView();
+
+        EventBus.getDefault().unregister(this);
+    }
+
     private void getData()
     {
+        String s = "";
+        if(status!=-1)
+        {
+            s = "&status="+status;
+        }
 
         isLoadingMore = true;
-        String url = HttpUtil.getAbsoluteUrl("matchfight/json/matchlist?matchType=1&p=" + page);
+        String url = HttpUtil.getAbsoluteUrl("matchfight/json/matchlist?matchType=1"+s+"&p=" + page);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -148,7 +210,7 @@ public class MatchTeamFragment extends BaseFragment {
                         MatchFight entity = gson.fromJson(jsonArray.get(i).toString(), MatchFight.class);
                         list.add(entity);
                     }
-                    adpater.addArrayList(list);
+                    adapter.addArrayList(list);
                     isLoadingMore = false;
                     page = page + 1;
 
@@ -167,5 +229,63 @@ public class MatchTeamFragment extends BaseFragment {
         });
         BaseApplication.getHttpQueue().add(stringRequest);
     }
+
+
+    public void onEventMainThread(TeamEvent event) {
+
+        if(event.getEventName().equals(TeamEvent.TEAM_DETAIL))
+        {
+            Team team = (Team)event.getData();
+
+            if(team==null)
+            {
+                return;
+            }
+            Intent intent = new Intent(getActivity(), TeamDetailActivity.class);
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("team",team);
+            intent.putExtras(bundle);
+
+            startActivity(intent);
+        }
+
+    }
+
+    public void onEventMainThread(MatchFightEvent event) {
+
+        if(event.getEventName().equals(MatchFightEvent.MATCHE_FILTER))
+        {
+            int idx = (int)event.getData();
+
+            if (idx==0)
+            {
+                status = -1;
+            }
+
+            if (idx==1)
+            {
+                status = 0;
+            }
+
+            if (idx==2)
+            {
+                status = 1;
+            }
+
+            if (idx==3)
+            {
+                status = 2;
+            }
+
+            page = 1;
+            adapter = new MatchTeamListAdpater(getActivity());
+            recyclerView.setAdapter(adapter);
+            getData();
+
+        }
+
+    }
+
 
 }

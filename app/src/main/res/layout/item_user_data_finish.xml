@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@color/colorAppBgLight"
+    android:orientation="horizontal"
+    android:paddingBottom="24dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/left">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:id="@+id/img1"
+                android:src="@mipmap/holder" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:id="@+id/name1"
+                android:textSize="13sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="得分"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont"
+                android:id="@+id/lb1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt11"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="命中"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont"
+                android:id="@+id/lb2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt12"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="三分"
+                android:id="@+id/lb3"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt21"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="罚球"
+                android:id="@+id/lb4"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt22"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="篮板"
+                android:id="@+id/lb5"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt31"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="助攻"
+                android:id="@+id/lb6"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt32"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="盖帽"
+                android:id="@+id/lb7"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt41"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="抢断"
+                android:id="@+id/lb8"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt42"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="犯规"
+                android:id="@+id/lb9"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt51"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="失误"
+                android:id="@+id/lb10"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt52"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/right">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginTop="16dp" >
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:id="@+id/img2"
+                android:src="@mipmap/holder" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:id="@+id/name2"
+                android:textSize="13sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="得分"
+                android:id="@+id/lc1"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt13"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="命中"
+                android:id="@+id/lc2"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt14"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="三分"
+                android:id="@+id/lc3"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt23"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="罚球"
+                android:id="@+id/lc4"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt24"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="篮板"
+                android:id="@+id/lc5"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt33"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="助攻"
+                android:id="@+id/lc6"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt34"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="盖帽"
+                android:id="@+id/lc7"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt43"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="抢断"
+                android:id="@+id/lc8"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt44"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="犯规"
+                android:id="@+id/lc9"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt53"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="失误"
+                android:id="@+id/lc10"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="@color/colorAppFont" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/txt54"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

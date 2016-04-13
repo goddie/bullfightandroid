@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.santao.bullfight.R;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.event.TeamEvent;
+import com.santao.bullfight.model.MatchFight;
 import com.santao.bullfight.model.Team;
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +36,9 @@ public class CreateMatchTwoActivity extends BaseAppCompatActivity {
     ImageView img5;
 
 
+    private MatchFight matchFight;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,13 @@ public class CreateMatchTwoActivity extends BaseAppCompatActivity {
         EventBus.getDefault().register(this);
 
         baseApplication.getLoginUser();
+
+
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null && bundle.containsKey("matchFight")) {
+            matchFight = (MatchFight)bundle.getSerializable("matchFight");
+        }
 
     }
 
@@ -102,7 +113,13 @@ public class CreateMatchTwoActivity extends BaseAppCompatActivity {
     public void goNext(View v)
     {
         Intent intent = new Intent(CreateMatchTwoActivity.this, CreateMatchThreeActivity.class);
+
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("matchFight", matchFight);
+
+        intent.putExtras(bundle);
+
         startActivity(intent);
-        //finish();
     }
 }

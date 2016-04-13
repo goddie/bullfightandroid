@@ -1,6 +1,7 @@
 package com.santao.bullfight.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -132,6 +133,15 @@ public class Team implements Serializable{
     
     private float threeGoalPercent;
 
+    private long createdDate;
+
+    public long getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(long createdDate) {
+        this.createdDate = createdDate;
+    }
 
     public UUID getId() {
         return id;

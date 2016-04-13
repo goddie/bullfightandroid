@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorAppBgDark"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingTop="2dp"
+    android:paddingBottom="4dp">
 
     <LinearLayout
         android:id="@+id/ll_tab1"
@@ -26,10 +26,9 @@
             android:id="@+id/tv_tab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:text="比赛"
             android:textColor="@color/colorAppOrange"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,10 +50,9 @@
             android:id="@+id/tv_tab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:text="新闻"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,10 +74,9 @@
             android:id="@+id/tv_tab3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:text="牛丸圈"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,10 +98,9 @@
             android:id="@+id/tv_tab4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:text="我"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

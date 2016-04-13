@@ -12,7 +12,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="48dp"
             android:id="@+id/topBar"
             android:background="@color/colorAppBgDark"></LinearLayout>
         <TextView
@@ -23,7 +23,8 @@
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -39,15 +40,15 @@
                 android:layout_height="wrap_content"
                 android:text="地点"
                 android:id="@+id/txtPlace"
-                android:layout_gravity="center_horizontal"
-                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
                 android:textColor="#ffffff" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView22"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/new_match_arrow"
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
@@ -60,7 +61,8 @@
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -75,8 +77,8 @@
                 android:layout_height="wrap_content"
                 android:text="2016-01-01"
                 android:id="@+id/txtDate"
-                android:layout_gravity="center_horizontal"
-                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
                 android:textColor="#ffffff" />
 
 
@@ -84,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView23"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/new_match_arrow"
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
@@ -97,7 +99,8 @@
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -112,15 +115,15 @@
                 android:layout_height="wrap_content"
                 android:text="12:00"
                 android:id="@+id/txtStart"
-                android:layout_gravity="center_horizontal"
-                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
                 android:textColor="#ffffff" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView24"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/new_match_arrow"
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
@@ -133,7 +136,8 @@
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -148,15 +152,15 @@
                 android:layout_height="wrap_content"
                 android:text="12:00"
                 android:id="@+id/txtEnd"
-                android:layout_gravity="center_horizontal"
-                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
                 android:textColor="#ffffff" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView25"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/new_match_arrow"
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
@@ -169,7 +173,8 @@
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -190,7 +195,8 @@
                 android:maxLines="5"
                 android:lines="3"
                 android:layout_weight="2"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -210,7 +216,8 @@
             android:background="@mipmap/shared_btn_small"
             android:textColor="@color/colorAppFont"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textSize="14sp" />
 
 
 

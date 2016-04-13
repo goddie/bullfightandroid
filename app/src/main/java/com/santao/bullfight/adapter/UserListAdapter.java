@@ -25,9 +25,17 @@ public class UserListAdapter  extends BaseRecyclerViewAdapter{
 
     private Context mContext;
 
+    private int type = 0;
+
     public UserListAdapter(Context context) {
         this.mContext = context;
         setArrayList(new ArrayList<>());
+    }
+
+    public UserListAdapter(Context context,int type) {
+        this.mContext = context;
+        setArrayList(new ArrayList<>());
+        this.type = type;
     }
 
     @Override
@@ -60,6 +68,11 @@ public class UserListAdapter  extends BaseRecyclerViewAdapter{
         final View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.item_user, parent, false);
         view.setOnClickListener(this);
+
+        if(type==1)
+        {
+            view.setBackground(mContext.getResources().getDrawable(R.color.colorAppBgLight));
+        }
 
         return new ItemViewHolder(view);
     }

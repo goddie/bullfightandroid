@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    tools:context="com.santao.bullfight.activity.MatchDetailActivity"
+    android:orientation="vertical"
+    android:background="@color/colorAppBg">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/topBar"
+        android:background="@color/colorAppBgDark"></LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:nestedScrollingEnabled="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:id="@+id/img1"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/holder"
+                    android:layout_marginTop="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:id="@+id/txt1"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:id="@+id/txt2"
+                    android:textColor="@color/colorAppFont"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="info"
+                    android:id="@+id/txt3"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:textColor="@color/colorAppFont"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:text="球队资料"
+                        android:id="@+id/btn1"
+                        android:background="@mipmap/shared_btn_small"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:text="队员管理"
+                        android:id="@+id/btn2"
+                        android:background="@mipmap/shared_btn_small"
+                        android:textColor="@color/colorAppFont"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.santao.bullfight.widget.TabButton
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:text="球队战绩"
+                    custom:normal_bg_res="@mipmap/tab_center_normal"
+                    custom:selected_bg_res="@mipmap/tab_center_selected"
+                    custom:selected_color="#ffffff"
+                    android:layout_weight="6"
+                    android:textSize="14sp"
+
+                    android:textColor="@color/colorAppFont" />
+
+                <com.santao.bullfight.widget.TabButton
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tab1"
+                    android:text="球队阵容"
+                    custom:normal_bg_res="@mipmap/tab_center_normal"
+                    custom:selected_bg_res="@mipmap/tab_center_selected"
+                    custom:selected_color="#ffffff"
+                    android:layout_weight="6"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorAppFont" />
+                <com.santao.bullfight.widget.TabButton
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tab2"
+                    android:text="球队数据"
+                    custom:normal_bg_res="@mipmap/tab_center_normal"
+                    custom:selected_bg_res="@mipmap/tab_center_selected"
+                    custom:selected_color="#ffffff"
+                    android:layout_weight="6"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorAppFont" />
+                <com.santao.bullfight.widget.TabButton
+                    android:id="@+id/tab4"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/tab3"
+                    android:text="获得荣誉"
+                    custom:normal_bg_res="@mipmap/tab_center_normal"
+                    custom:selected_bg_res="@mipmap/tab_center_selected"
+                    custom:selected_color="#ffffff"
+                    android:layout_weight="6"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorAppFont" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/colorAppBgLight"
+                android:id="@+id/llContent"></LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

@@ -6,11 +6,14 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.santao.bullfight.R;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.model.User;
+import com.santao.bullfight.widget.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 
@@ -32,6 +35,9 @@ public class UserDetailInfoFragment extends BaseFragment {
 
     @Bind(R.id.txt4)
     TextView txt4;
+
+    @Bind(R.id.img1)
+    ImageView img1;
 
     private User user ;
 
@@ -64,6 +70,15 @@ public class UserDetailInfoFragment extends BaseFragment {
         txt3.setText(HttpUtil.getDate(user.getBirthday()));
         txt4.setText(user.getPosition());
 
+
+        if(!HttpUtil.isNullOrEmpty(user.getAvatar()))
+        {
+            Picasso.with(getActivity()).load(HttpUtil.BASE_URL + user.getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder).into(img1);
+        }else
+        {
+            Picasso.with(getActivity()).load(R.mipmap.holder).transform(new CircleTransform())
+                    .into(img1);
+        }
 
     }
 }
