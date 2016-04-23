@@ -25,7 +25,7 @@ public class MyTeamAdapter extends BaseRecyclerViewAdapter{
 
     public MyTeamAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

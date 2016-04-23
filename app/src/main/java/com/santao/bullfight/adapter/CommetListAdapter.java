@@ -30,13 +30,13 @@ public class CommetListAdapter extends  BaseRecyclerViewAdapter {
 
     public CommetListAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
 
     public CommetListAdapter(Context context,int style) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
         this.style = style;
     }
 
@@ -46,16 +46,28 @@ public class CommetListAdapter extends  BaseRecyclerViewAdapter {
         Commet entity = (Commet) getArrayList().get(position);
 
 
+
         if(!HttpUtil.isNullOrEmpty( entity.getFrom().getAvatar()))
         {
             Picasso.with(mContext).load(HttpUtil.BASE_URL + entity.getFrom().getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder)
+                    .into(itemViewHolder.img1);
+        }else
+        {
+            Picasso.with(mContext).load(R.mipmap.holder).transform(new CircleTransform())
                     .into(itemViewHolder.img1);
         }
 
 
         itemViewHolder.txt1.setText(entity.getFrom().getNickname());
         itemViewHolder.txt2.setText(HttpUtil.getDate(entity.getCreatedDate()));
-        itemViewHolder.txt3.setText(entity.getContent());
+        if(entity.getReply()!=null)
+        {
+            itemViewHolder.txt3.setText("回复 "+ entity.getReply().getNickname() +":"+entity.getContent());
+        }else
+        {
+            itemViewHolder.txt3.setText(entity.getContent());
+        }
+
         itemViewHolder.itemView.setTag(entity);
     }
 
@@ -70,7 +82,8 @@ public class CommetListAdapter extends  BaseRecyclerViewAdapter {
 
             if(style==1)
             {
-                view.setBackground(mContext.getResources().getDrawable(R.color.colorAppBgLight));
+
+                view.setBackgroundColor(mContext.getResources().getColor(R.color.colorAppBgLight));
             }
 
             return new ItemViewHolder(view);

@@ -127,8 +127,9 @@ public class MyTeamOneFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new MyTeamAdapter(getActivity());
-                recyclerView.setAdapter(adpater);
+//                adpater = new MyTeamAdapter(getActivity());
+//                recyclerView.setAdapter(adpater);
+                adpater.clear();
                 getData();
 
             }
@@ -151,7 +152,7 @@ public class MyTeamOneFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");

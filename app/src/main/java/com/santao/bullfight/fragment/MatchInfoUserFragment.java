@@ -9,9 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,9 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
-import com.santao.bullfight.activity.MatchDetailActivity;
+import com.santao.bullfight.activity.UserDetailActivity;
 import com.santao.bullfight.adapter.MatchInfoUserAdapter;
-import com.santao.bullfight.adapter.MatchTeamListAdpater;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.model.MatchFight;
@@ -33,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import butterknife.Bind;
 
@@ -53,7 +49,7 @@ public class MatchInfoUserFragment extends BaseFragment {
     private boolean isLoadingMore = false;
 
 
-    private MatchInfoUserAdapter adpater;
+    private MatchInfoUserAdapter adapter;
 
     @Override
     public int getContentViewId() {
@@ -65,8 +61,8 @@ public class MatchInfoUserFragment extends BaseFragment {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-        adpater = new MatchInfoUserAdapter(getActivity());
-        recyclerView.setAdapter(adpater);
+        adapter = new MatchInfoUserAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -78,9 +74,9 @@ public class MatchInfoUserFragment extends BaseFragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                //Log.d("", "newState:" + newState + " " + adpater.getItemCount());
+                //Log.d("", "newState:" + newState + " " + adapter.getItemCount());
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adpater.getItemCount()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
                     //getData();
                 }
 
@@ -96,24 +92,22 @@ public class MatchInfoUserFragment extends BaseFragment {
             }
         });
 
-        adpater.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
 
             @Override
             public void onItemClick(View view, Object id) {
 
-//                MatchFight entity = (MatchFight)id;
-//
-//                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
-//
-//                Bundle mBundle = new Bundle();
-//                mBundle.putSerializable("matchfight",entity);
-//
-//                intent.putExtras(mBundle);
-//
-//
-//                //Log.d("","id:"+id);
-//                //leagueListAdapter.getArrayList().get(id);
-//                startActivity(intent);
+                User user = (User) id;
+                Intent intent = new Intent(getActivity(), UserDetailActivity.class);
+
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable("user", user);
+
+                intent.putExtras(mBundle);
+
+                //Log.d("","id:"+id);
+                //leagueListAdapter.getArrayList().get(id);
+                startActivity(intent);
             }
         });
 
@@ -124,8 +118,9 @@ public class MatchInfoUserFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new MatchInfoUserAdapter(getActivity());
-                recyclerView.setAdapter(adpater);
+//                adapter = new MatchInfoUserAdapter(getActivity());
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -166,7 +161,7 @@ public class MatchInfoUserFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -176,8 +171,8 @@ public class MatchInfoUserFragment extends BaseFragment {
                     JSONArray subArr2 = jsonArray.getJSONArray(1);
 
 
-                    ArrayList<User> arr1 = new ArrayList<>();
-                    ArrayList<User> arr2 = new ArrayList<>();
+                    ArrayList<User> arr1 = new ArrayList<User>();
+                    ArrayList<User> arr2 = new ArrayList<User>();
 
                     for (int i=0;i<subArr1.length();i++)
                     {
@@ -225,7 +220,7 @@ public class MatchInfoUserFragment extends BaseFragment {
 
 
 
-                    adpater.addArrayList(list);
+                    adapter.addArrayList(list);
                     isLoadingMore = false;
                     page = page + 1;
 

@@ -145,7 +145,7 @@ public class MatchDetailFinishActivity extends BaseAppCompatActivity {
     @Override
     public void onTopFinish() {
         super.onTopFinish();
-        setTxtRight("写评论");
+        setTxtRight("评论");
 
     }
 

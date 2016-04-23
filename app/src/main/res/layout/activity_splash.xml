@@ -12,8 +12,26 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/imageView16"
-        android:src="@mipmap/launch"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/bg" />
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/imageView27"
+        android:src="@mipmap/logo1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="45dp"
+        android:scaleType="fitCenter" />
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView28"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="30dp"
+        android:src="@mipmap/logo2"
         android:scaleType="fitCenter" />
 </FrameLayout>

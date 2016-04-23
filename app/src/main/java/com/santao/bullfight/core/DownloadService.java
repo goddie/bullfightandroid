@@ -4,7 +4,7 @@ package com.santao.bullfight.core;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.os.ResultReceiver;
+import android.os.ResultReceiver;
 
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;

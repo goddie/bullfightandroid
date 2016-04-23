@@ -16,7 +16,7 @@
     <ImageView
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:id="@+id/imgAvatar"
+        android:id="@+id/img1"
         android:src="@mipmap/signup_avatar_placeholder"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"

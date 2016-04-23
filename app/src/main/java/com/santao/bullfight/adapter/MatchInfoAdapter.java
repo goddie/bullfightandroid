@@ -4,7 +4,6 @@ package com.santao.bullfight.adapter;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,7 @@ public class MatchInfoAdapter extends BaseRecyclerViewAdapter {
 
     public MatchInfoAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

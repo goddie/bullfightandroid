@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
 import com.santao.bullfight.activity.MatchDetailActivity;
+import com.santao.bullfight.activity.UserDetailActivity;
 import com.santao.bullfight.adapter.TeamRecordAdapter;
 import com.santao.bullfight.adapter.UserListAdapter;
 import com.santao.bullfight.core.BaseApplication;
@@ -111,19 +112,17 @@ public class TeamMemberFragment extends BaseFragment {
             @Override
             public void onItemClick(View view, Object id) {
 
+                User user = (User)id;
+                Intent intent = new Intent(getActivity(), UserDetailActivity.class);
 
-//                MatchFight entity = (MatchFight)id;
-//
-//                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
-//
-//                Bundle mBundle = new Bundle();
-//                mBundle.putSerializable("matchfight",entity);
-//
-//                intent.putExtras(mBundle);
-//
-//                //Log.d("","id:"+id);
-//                //leagueListAdapter.getArrayList().get(id);
-//                startActivity(intent);
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable("user",user);
+
+                intent.putExtras(mBundle);
+
+                //Log.d("","id:"+id);
+                //leagueListAdapter.getArrayList().get(id);
+                startActivity(intent);
             }
         });
 
@@ -134,8 +133,9 @@ public class TeamMemberFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adapter = new UserListAdapter(getActivity(),1);
-                recyclerView.setAdapter(adapter);
+//                adapter = new UserListAdapter(getActivity(),1);
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -159,7 +159,7 @@ public class TeamMemberFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");

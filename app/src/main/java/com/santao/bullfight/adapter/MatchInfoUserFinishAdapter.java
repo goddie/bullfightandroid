@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.santao.bullfight.R;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.event.TeamEvent;
+import com.santao.bullfight.event.UserEvent;
 import com.santao.bullfight.model.MatchDataUser;
 import com.santao.bullfight.model.User;
 import com.santao.bullfight.widget.CircleTransform;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 
 public class MatchInfoUserFinishAdapter extends BaseRecyclerViewAdapter {
@@ -29,7 +32,7 @@ public class MatchInfoUserFinishAdapter extends BaseRecyclerViewAdapter {
 
     public MatchInfoUserFinishAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override
@@ -59,7 +62,7 @@ public class MatchInfoUserFinishAdapter extends BaseRecyclerViewAdapter {
             }
 
 
-
+            itemViewHolder.img1.setTag(entity.getUser());
 
 
             itemViewHolder.txt11.setText(decimalFormat.format(entity.getScoring())+"");
@@ -129,7 +132,7 @@ public class MatchInfoUserFinishAdapter extends BaseRecyclerViewAdapter {
                         .into(itemViewHolder.img2);
             }
 
-
+            itemViewHolder.img2.setTag(entity.getUser());
 
             itemViewHolder.txt13.setText(decimalFormat.format(entity.getScoring())+"");
             itemViewHolder.txt14.setText(decimalFormat.format(entity.getGoal())+"/"+decimalFormat.format(entity.getShot()));
@@ -193,6 +196,31 @@ public class MatchInfoUserFinishAdapter extends BaseRecyclerViewAdapter {
             final View view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_user_data_finish, parent, false);
             view.setOnClickListener(this);
+
+            final ImageView img1 = (ImageView)view.findViewById(R.id.img1);
+            img1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    UserEvent event = new UserEvent(UserEvent.USER_DETAIL);
+                    event.setData(img1.getTag());
+                    EventBus.getDefault().post(event);
+                }
+            });
+
+
+            final ImageView img2 = (ImageView)view.findViewById(R.id.img2);
+            img2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    UserEvent event = new UserEvent(UserEvent.USER_DETAIL);
+                    event.setData(img2.getTag());
+                    EventBus.getDefault().post(event);
+                }
+            });
+
+
             return new ItemViewHolder(view);
 
         } else if (viewType == TYPE_FOOTER) {

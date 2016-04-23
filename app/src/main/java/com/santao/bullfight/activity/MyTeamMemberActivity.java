@@ -140,8 +140,9 @@ public class MyTeamMemberActivity extends BaseAppCompatActivity {
             @Override
             public void onRefresh() {
                 page = 1;
-                adapter = new MyTeamMemberAdapter(MyTeamMemberActivity.this);
-                recyclerView.setAdapter(adapter);
+//                adapter = new MyTeamMemberAdapter(MyTeamMemberActivity.this);
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -262,7 +263,7 @@ public class MyTeamMemberActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");

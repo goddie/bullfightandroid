@@ -38,11 +38,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -83,6 +86,10 @@ public class CreateTeamActivity extends BaseAppCompatActivity {
     private String avatar;
 
     private Team team;
+
+    private static final String IMAGE_FILE_LOCATION = Environment.getExternalStorageDirectory()+"/";
+
+    private Uri imageUri = Uri.fromFile(new File(IMAGE_FILE_LOCATION+ UUID.randomUUID().toString()+".jpg"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +181,7 @@ public class CreateTeamActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
@@ -187,7 +194,7 @@ public class CreateTeamActivity extends BaseAppCompatActivity {
 
                         team = gson.fromJson(obj.toString(),Team.class);
 
-                        if(tempFile!=null)
+                        if(tempFile!=null&&tempFile.exists())
                         {
                             upload(tempFile);
 
@@ -226,7 +233,7 @@ public class CreateTeamActivity extends BaseAppCompatActivity {
     private void showDialog() {
 
         new AlertDialog.Builder(this)
-                .setTitle("设置队标")
+                .setTitle("设置头像")
                 .setItems(items, new DialogInterface.OnClickListener() {
 
                     @Override
@@ -235,27 +242,22 @@ public class CreateTeamActivity extends BaseAppCompatActivity {
                             case 0:
                                 Intent intentFromGallery = new Intent();
                                 intentFromGallery.setType("image/*"); // 设置文件类型
-                                intentFromGallery
-                                        .setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(intentFromGallery,
-                                        IMAGE_REQUEST_CODE);
+                                intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+                                startActivityForResult(intentFromGallery,IMAGE_REQUEST_CODE);
                                 break;
                             case 1:
 
-                                Intent intentFromCapture = new Intent(
-                                        MediaStore.ACTION_IMAGE_CAPTURE);
+                                Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 // 判断存储卡是否可以用，可用进行存储
                                 if (Utils.hasSdcard()) {
 
-                                    intentFromCapture.putExtra(
-                                            MediaStore.EXTRA_OUTPUT,
-                                            Uri.fromFile(new File(Environment
-                                                    .getExternalStorageDirectory(),
-                                                    IMAGE_FILE_NAME)));
+                                    String path = Utils.getPathByUri4kitkat(CreateTeamActivity.this, imageUri);
+                                    File tmp = new File(path);
+
+                                    intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(tmp));
                                 }
 
-                                startActivityForResult(intentFromCapture,
-                                        CAMERA_REQUEST_CODE);
+                                startActivityForResult(intentFromCapture,CAMERA_REQUEST_CODE);
                                 break;
                         }
                     }
@@ -280,20 +282,19 @@ public class CreateTeamActivity extends BaseAppCompatActivity {
         switch (requestCode) {
             case IMAGE_REQUEST_CODE:
 
+
                 Uri uri = data.getData();
 
                 startPhotoZoom(uri);
 
-                String path = Utils.getPathByUri4kitkat(this,uri);
-                tempFile = new File(path);
+                //String path = Utils.getPathByUri4kitkat(this, uri);
+                //tempFile = new File(path);
 
                 break;
             case CAMERA_REQUEST_CODE:
                 if (Utils.hasSdcard()) {
-                    tempFile = new File(
-                            Environment.getExternalStorageDirectory()
-                                    + IMAGE_FILE_NAME);
-                    startPhotoZoom(Uri.fromFile(tempFile));
+                    //tempFile = new File(Environment.getExternalStorageDirectory()+ IMAGE_FILE_NAME);
+                    startPhotoZoom(imageUri);
                 } else {
                     Toast.makeText(CreateTeamActivity.this, R.string.no_card,
                             Toast.LENGTH_LONG).show();
@@ -329,6 +330,9 @@ public class CreateTeamActivity extends BaseAppCompatActivity {
         intent.putExtra("outputY", 320);
         intent.putExtra("return-data", true);
 
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        //intent.putExtra("noFaceDetection", true); // no face detection
 
 
         startActivityForResult(intent, 2);
@@ -345,9 +349,40 @@ public class CreateTeamActivity extends BaseAppCompatActivity {
             Drawable drawable = new BitmapDrawable(photo);
             img1.setImageDrawable(drawable);
 
+            String path = Utils.getPathByUri4kitkat(this, imageUri);
+
+            tempFile = new File(path);
+
+
+            FileOutputStream fOut = null;
+            try {
+                tempFile.createNewFile();
+                fOut = new FileOutputStream(tempFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            photo.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
+            try {
+                fOut.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+//            if(tmp!=null&&tmp.exists())
+//            {
+//                upload(tmp);
+//            }
+
+
         }
-
-
     }
 
     void upload(File file)

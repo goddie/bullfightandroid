@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.R;
 import com.santao.bullfight.model.Team;
+import com.santao.bullfight.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class TeamListAdapter extends  BaseRecyclerViewAdapter {
 
     public TeamListAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override
@@ -34,7 +35,7 @@ public class TeamListAdapter extends  BaseRecyclerViewAdapter {
         Team entity = (Team) getArrayList().get(position);
 
 
-        Picasso.with(mContext).load(HttpUtil.BASE_URL + entity.getAvatar()).placeholder(R.mipmap.holder)
+        Picasso.with(mContext).load(HttpUtil.BASE_URL + entity.getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder)
                 .into(itemViewHolder.imgTeam);
 
         itemViewHolder.itemView.setTag(entity);

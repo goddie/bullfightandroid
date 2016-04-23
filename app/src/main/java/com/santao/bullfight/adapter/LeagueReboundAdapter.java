@@ -25,7 +25,7 @@ public class LeagueReboundAdapter extends BaseRecyclerViewAdapter {
 
     public LeagueReboundAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

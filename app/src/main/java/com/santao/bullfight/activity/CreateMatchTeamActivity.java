@@ -77,6 +77,11 @@ public class CreateMatchTeamActivity extends BaseAppCompatActivity {
 
     }
 
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
+        setTitle("我的球队");
+    }
 
     private void getData() {
 
@@ -86,7 +91,7 @@ public class CreateMatchTeamActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");

@@ -15,9 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
-import com.santao.bullfight.activity.MatchDetailActivity;
 import com.santao.bullfight.activity.MatchWildActivity;
-import com.santao.bullfight.adapter.MatchTeamListAdpater;
 import com.santao.bullfight.adapter.MatchWildListAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
@@ -44,7 +42,7 @@ public class MatchWildFragment extends BaseFragment {
     private boolean isLoadingMore = false;
 
 
-    private MatchWildListAdapter adpater;
+    private MatchWildListAdapter adapter;
 
     @Override
     public int getContentViewId() {
@@ -56,8 +54,8 @@ public class MatchWildFragment extends BaseFragment {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-        adpater = new MatchWildListAdapter(getActivity());
-        recyclerView.setAdapter(adpater);
+        adapter = new MatchWildListAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -69,9 +67,9 @@ public class MatchWildFragment extends BaseFragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                //Log.d("", "newState:" + newState + " " + adpater.getItemCount());
+                //Log.d("", "newState:" + newState + " " + adapter.getItemCount());
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adpater.getItemCount()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
                     getData();
                 }
 
@@ -87,18 +85,18 @@ public class MatchWildFragment extends BaseFragment {
             }
         });
 
-        adpater.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
 
             @Override
             public void onItemClick(View view, Object id) {
 
-                MatchFight entity = (MatchFight)id;
+                MatchFight entity = (MatchFight) id;
 
                 Intent intent = new Intent(getActivity(), MatchWildActivity.class);
                 //intent.putExtra("id", id.toString());
 
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("matchfight",entity);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("matchfight", entity);
 
                 intent.putExtras(bundle);
 
@@ -115,8 +113,9 @@ public class MatchWildFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new MatchWildListAdapter(getActivity());
-                recyclerView.setAdapter(adpater);
+//                adapter = new MatchWildListAdapter(getActivity());
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -140,7 +139,7 @@ public class MatchWildFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -148,7 +147,7 @@ public class MatchWildFragment extends BaseFragment {
                         MatchFight entity = gson.fromJson(jsonArray.get(i).toString(), MatchFight.class);
                         list.add(entity);
                     }
-                    adpater.addArrayList(list);
+                    adapter.addArrayList(list);
                     isLoadingMore = false;
                     page = page + 1;
 

@@ -26,7 +26,7 @@ public class LeagueAssistAdapter extends BaseRecyclerViewAdapter {
 
     public LeagueAssistAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

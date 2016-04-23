@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.R;
 import com.santao.bullfight.model.User;
+import com.santao.bullfight.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,12 +30,12 @@ public class UserListAdapter  extends BaseRecyclerViewAdapter{
 
     public UserListAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     public UserListAdapter(Context context,int type) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
         this.type = type;
     }
 
@@ -44,7 +45,7 @@ public class UserListAdapter  extends BaseRecyclerViewAdapter{
         User entity = (User) getArrayList().get(position);
 
 
-        Picasso.with(mContext).load(HttpUtil.BASE_URL + entity.getAvatar()).placeholder(R.mipmap.holder)
+        Picasso.with(mContext).load(HttpUtil.BASE_URL + entity.getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder)
                 .into(itemViewHolder.img);
 
         itemViewHolder.name.setText(entity.getNickname());
@@ -53,11 +54,17 @@ public class UserListAdapter  extends BaseRecyclerViewAdapter{
         if((int)entity.getHeight()!=0)
         {
             itemViewHolder.height.setText("身高: " + (int)entity.getHeight() + " cm");
+        }else
+        {
+            itemViewHolder.height.setText("身高: 保密");
         }
 
         if((int)entity.getHeight()!=0)
         {
             itemViewHolder.weight.setText("体重: "+ (int)entity.getWeight()+" kg");
+        }else
+        {
+            itemViewHolder.weight.setText("体重: 保密");
         }
 
         itemViewHolder.itemView.setTag(entity);
@@ -71,7 +78,8 @@ public class UserListAdapter  extends BaseRecyclerViewAdapter{
 
         if(type==1)
         {
-            view.setBackground(mContext.getResources().getDrawable(R.color.colorAppBgLight));
+            view.setBackgroundColor(mContext.getResources().getColor(R.color.colorAppBgLight));
+
         }
 
         return new ItemViewHolder(view);

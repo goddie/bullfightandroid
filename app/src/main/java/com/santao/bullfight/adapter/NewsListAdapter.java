@@ -27,7 +27,7 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter{
 
     public NewsListAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

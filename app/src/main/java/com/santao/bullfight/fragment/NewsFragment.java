@@ -119,8 +119,9 @@ public class NewsFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adapter = new NewsListAdapter(getActivity());
-                recyclerView.setAdapter(adapter);
+//                adapter = new NewsListAdapter(getActivity());
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -142,7 +143,7 @@ public class NewsFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");

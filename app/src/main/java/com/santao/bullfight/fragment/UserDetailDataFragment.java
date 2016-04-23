@@ -17,6 +17,7 @@ import com.santao.bullfight.adapter.MatchInfoAdapter;
 import com.santao.bullfight.adapter.UserDetailDataAdapter;
 import com.santao.bullfight.model.User;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -62,52 +63,55 @@ public class UserDetailDataFragment extends BaseFragment {
 
     private void getData()
     {
+
+        DecimalFormat  df =new DecimalFormat("0.0");
+
         ArrayList<Object> list = new ArrayList<Object>();
 
 
-        ArrayList<Object> item = new ArrayList<>();
+        ArrayList<Object> item = new ArrayList<Object>();
         item.add("三分球命中率");
-        item.add(user.getThreeGoalPercent()+"%");
+        item.add(df.format(user.getThreeGoalPercent()*100)+"%");
         list.add(item);
 
-        item = new ArrayList<>();
+        item = new ArrayList<Object>();
         item.add("投篮命中率");
-        item.add(user.getGoalPercent()+"%");
+        item.add(df.format(user.getGoalPercent()*100)+"%");
         list.add(item);
 
-        item = new ArrayList<>();
+        item = new ArrayList<Object>();
         item.add("场均得分");
-        item.add(user.getScoringAvg()+"");
+        item.add(df.format(user.getScoringAvg())+"");
         list.add(item);
 
 
-        item = new ArrayList<>();
+        item = new ArrayList<Object>();
         item.add("场均犯规");
-        item.add(user.getFoul()+"");
+        item.add(df.format(user.getFoul())+"");
         list.add(item);
 
 
-        item = new ArrayList<>();
+        item = new ArrayList<Object>();
         item.add("场均篮板");
-        item.add(user.getRebound()+"");
+        item.add(df.format(user.getRebound())+"");
         list.add(item);
 
 
-        item = new ArrayList<>();
+        item = new ArrayList<Object>();
         item.add("场均助攻");
-        item.add(user.getAssist()+"");
+        item.add(df.format(user.getAssist())+"");
         list.add(item);
 
 
-        item = new ArrayList<>();
+        item = new ArrayList<Object>();
         item.add("场均失误");
-        item.add(user.getTurnover()+"");
+        item.add(df.format(user.getTurnover())+"");
         list.add(item);
 
 
-        item = new ArrayList<>();
+        item = new ArrayList<Object>();
         item.add("场均抢断");
-        item.add(user.getSteal()+"");
+        item.add(df.format(user.getSteal())+"");
         list.add(item);
 
 

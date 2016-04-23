@@ -1,5 +1,7 @@
 package com.santao.bullfight.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +22,7 @@ import com.santao.bullfight.adapter.CommetListAdapter;
 import com.santao.bullfight.adapter.NewsListAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.event.MatchFightEvent;
 import com.santao.bullfight.model.Article;
 import com.santao.bullfight.model.Commet;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public class CommetListActivity extends BaseAppCompatActivity {
 
@@ -109,6 +113,36 @@ public class CommetListActivity extends BaseAppCompatActivity {
             @Override
             public void onItemClick(View view, Object id) {
 
+                final Commet entty = (Commet) id;
+
+                new android.support.v7.app.AlertDialog.Builder(CommetListActivity.this)
+                        .setTitle("是否回复")
+                        .setPositiveButton("回复", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                                Intent intent = new Intent(CommetListActivity.this, CommetAddActivity.class);
+
+                                Bundle bundle = new Bundle();
+                                bundle.putString("aid", aid);
+                                bundle.putString("ruid", entty.getFrom().getId().toString());
+
+                                intent.putExtras(bundle);
+
+                                startActivity(intent);
+
+
+                            }
+                        })
+                        .setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+
 //                Article entity = (Article)id;
 //
 //                Intent intent = new Intent(CommetListActivity.this, NewsDetailActivity.class);
@@ -128,8 +162,10 @@ public class CommetListActivity extends BaseAppCompatActivity {
             @Override
             public void onRefresh() {
                 page = 1;
-                adapter = new CommetListAdapter(CommetListActivity.this);
-                recyclerView.setAdapter(adapter);
+//                adapter = new CommetListAdapter(CommetListActivity.this);
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
+
                 getData();
 
             }
@@ -147,7 +183,7 @@ public class CommetListActivity extends BaseAppCompatActivity {
     public void onTopFinish() {
         super.onTopFinish();
         setTitle("评论");
-        setTxtRight("写评论");
+        setTxtRight("发表");
     }
 
     @Override
@@ -172,7 +208,7 @@ public class CommetListActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -201,4 +237,15 @@ public class CommetListActivity extends BaseAppCompatActivity {
         BaseApplication.getHttpQueue().add(stringRequest);
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus)
+        {
+//            page = 1;
+//            adapter = new CommetListAdapter(CommetListActivity.this);
+//            recyclerView.setAdapter(adapter);
+//            getData();
+        }
+    }
 }

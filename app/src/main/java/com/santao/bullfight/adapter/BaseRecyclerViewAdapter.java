@@ -13,12 +13,13 @@ import android.view.ViewGroup;
 
 import com.santao.bullfight.R;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
+import com.santao.bullfight.widget.OnRecyclerViewItemLongClickListener;
 
 import java.util.ArrayList;
 
 
 public class BaseRecyclerViewAdapter extends
-        RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
+        RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener,View.OnLongClickListener {
 
     private ArrayList<Object> arrayList;
     private View header;
@@ -31,11 +32,11 @@ public class BaseRecyclerViewAdapter extends
     private int footerFlag = 0;
 
     public BaseRecyclerViewAdapter() {
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     public BaseRecyclerViewAdapter(View header) {
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
         this.setHeader(header);
 
     }
@@ -46,8 +47,15 @@ public class BaseRecyclerViewAdapter extends
 
     private OnRecyclerViewItemClickListener onItemClickListener = null;
 
+    private OnRecyclerViewItemLongClickListener onItemLongClickListener = null;
+
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
         this.onItemClickListener = listener;
+    }
+
+    public void setOnItemLongClickListener(OnRecyclerViewItemLongClickListener listener)
+    {
+        this.onItemLongClickListener = listener;
     }
 
 
@@ -74,6 +82,16 @@ public class BaseRecyclerViewAdapter extends
             onItemClickListener.onItemClick(v,  v.getTag());
         }
     }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (onItemLongClickListener != null) {
+            onItemLongClickListener.onItemLongClick(v,  v.getTag());
+        }
+        return false;
+    }
+
+
 
     @Override
     public int getItemViewType(int position) {
@@ -135,10 +153,16 @@ public class BaseRecyclerViewAdapter extends
         this.footerFlag = footerFlag;
     }
 
+
     static class FootViewHolder extends RecyclerView.ViewHolder {
 
         public FootViewHolder(View view) {
             super(view);
         }
+    }
+
+    public void clear() {
+        this.getArrayList().clear();
+        notifyDataSetChanged();
     }
 }

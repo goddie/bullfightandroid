@@ -90,7 +90,7 @@ public class MyTeamEditActivity extends BaseAppCompatActivity {
 
     private static final String IMAGE_FILE_LOCATION = Environment.getExternalStorageDirectory()+"//"+IMAGE_FILE_NAME;
 
-    private Uri imageUri;
+    private Uri imageUri = Uri.fromFile(new File(IMAGE_FILE_LOCATION+ UUID.randomUUID().toString()+".jpg"));
 
     private File tempFile;
 
@@ -110,7 +110,6 @@ public class MyTeamEditActivity extends BaseAppCompatActivity {
 
         bind();
 
-        imageUri = Uri.fromFile(new File(IMAGE_FILE_LOCATION+ UUID.randomUUID().toString()+".jpg"));
     }
 
     @Override
@@ -192,7 +191,7 @@ public class MyTeamEditActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
@@ -244,7 +243,7 @@ public class MyTeamEditActivity extends BaseAppCompatActivity {
     private void showDialog() {
 
         new AlertDialog.Builder(this)
-                .setTitle("设置队标")
+                .setTitle("设置头像")
                 .setItems(items, new DialogInterface.OnClickListener() {
 
                     @Override
@@ -253,27 +252,22 @@ public class MyTeamEditActivity extends BaseAppCompatActivity {
                             case 0:
                                 Intent intentFromGallery = new Intent();
                                 intentFromGallery.setType("image/*"); // 设置文件类型
-                                intentFromGallery
-                                        .setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(intentFromGallery,
-                                        IMAGE_REQUEST_CODE);
+                                intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+                                startActivityForResult(intentFromGallery,IMAGE_REQUEST_CODE);
                                 break;
                             case 1:
 
-                                Intent intentFromCapture = new Intent(
-                                        MediaStore.ACTION_IMAGE_CAPTURE);
+                                Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 // 判断存储卡是否可以用，可用进行存储
                                 if (Utils.hasSdcard()) {
 
-                                    intentFromCapture.putExtra(
-                                            MediaStore.EXTRA_OUTPUT,
-                                            Uri.fromFile(new File(Environment
-                                                    .getExternalStorageDirectory(),
-                                                    IMAGE_FILE_NAME)));
+                                    String path = Utils.getPathByUri4kitkat(MyTeamEditActivity.this, imageUri);
+                                    File tmp = new File(path);
+
+                                    intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(tmp));
                                 }
 
-                                startActivityForResult(intentFromCapture,
-                                        CAMERA_REQUEST_CODE);
+                                startActivityForResult(intentFromCapture,CAMERA_REQUEST_CODE);
                                 break;
                         }
                     }
@@ -298,17 +292,18 @@ public class MyTeamEditActivity extends BaseAppCompatActivity {
         switch (requestCode) {
             case IMAGE_REQUEST_CODE:
 
+
                 Uri uri = data.getData();
 
                 startPhotoZoom(uri);
 
-                //String path = Utils.getPathByUri4kitkat(this,uri);
+                //String path = Utils.getPathByUri4kitkat(this, uri);
                 //tempFile = new File(path);
 
                 break;
             case CAMERA_REQUEST_CODE:
                 if (Utils.hasSdcard()) {
-                    //tempFile = new File( Environment.getExternalStorageDirectory() + IMAGE_FILE_NAME);
+                    //tempFile = new File(Environment.getExternalStorageDirectory()+ IMAGE_FILE_NAME);
                     startPhotoZoom(imageUri);
                 } else {
                     Toast.makeText(MyTeamEditActivity.this, R.string.no_card,
@@ -344,7 +339,10 @@ public class MyTeamEditActivity extends BaseAppCompatActivity {
         intent.putExtra("outputX", 320);
         intent.putExtra("outputY", 320);
         intent.putExtra("return-data", true);
-        //intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//图像输出
+
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        //intent.putExtra("noFaceDetection", true); // no face detection
 
 
         startActivityForResult(intent, 2);

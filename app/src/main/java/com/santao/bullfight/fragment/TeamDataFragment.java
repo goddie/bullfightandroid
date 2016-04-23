@@ -68,8 +68,8 @@ public class TeamDataFragment extends BaseFragment {
         Bundle bundle=intent.getExtras();
         team = (Team)bundle.getSerializable("team");
 
-        txt1.setText(fmt(team.getGoalPercent())+"%");
-        txt2.setText(fmt(team.getFreeGoalPercent())+"%");
+        txt1.setText(fmt(team.getGoalPercent()*100)+"%");
+        txt2.setText(fmt(team.getFreeGoalPercent()*100)+"%");
         txt3.setText(fmt(team.getRebound()));
         txt4.setText(fmt(team.getAssist()));
         txt5.setText(fmt(team.getBlock()));

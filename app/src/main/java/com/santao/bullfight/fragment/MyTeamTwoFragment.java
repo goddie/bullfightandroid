@@ -1,6 +1,7 @@
 package com.santao.bullfight.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -8,9 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -18,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
+import com.santao.bullfight.activity.TeamDetailActivity;
 import com.santao.bullfight.adapter.MyTeamAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
@@ -47,7 +47,7 @@ public class MyTeamTwoFragment extends BaseFragment {
     private boolean isLoadingMore = false;
     private String uid=null;
 
-    private MyTeamAdapter adpater;
+    private MyTeamAdapter adapter;
 
     @Override
     public int getContentViewId() {
@@ -66,8 +66,8 @@ public class MyTeamTwoFragment extends BaseFragment {
 
         final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(),3);
 
-        adpater = new MyTeamAdapter(getActivity());
-        recyclerView.setAdapter(adpater);
+        adapter = new MyTeamAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -81,7 +81,7 @@ public class MyTeamTwoFragment extends BaseFragment {
 
                 //Log.d("", "newState:" + newState + " " + adapter.getItemCount());
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adpater.getItemCount()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
                     getData();
                 }
 
@@ -97,10 +97,23 @@ public class MyTeamTwoFragment extends BaseFragment {
             }
         });
 
-        adpater.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
 
             @Override
             public void onItemClick(View view, Object id) {
+
+                Team team = (Team) id;
+
+                Intent intent = new Intent(getActivity(), TeamDetailActivity.class);
+
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable("team", team);
+                mBundle.putInt("isUser", 1);
+
+                intent.putExtras(mBundle);
+
+
+                startActivity(intent);
 
 //                TeamEvent event = new TeamEvent();
 //                event.setData(tag);
@@ -116,8 +129,9 @@ public class MyTeamTwoFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new MyTeamAdapter(getActivity());
-                recyclerView.setAdapter(adpater);
+//                adapter = new MyTeamAdapter(getActivity());
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -140,7 +154,7 @@ public class MyTeamTwoFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -148,7 +162,7 @@ public class MyTeamTwoFragment extends BaseFragment {
                         Team entity = gson.fromJson(jsonArray.get(i).toString(), Team.class);
                         list.add(entity);
                     }
-                    adpater.addArrayList(list);
+                    adapter.addArrayList(list);
                     isLoadingMore = false;
                     page = page + 1;
 

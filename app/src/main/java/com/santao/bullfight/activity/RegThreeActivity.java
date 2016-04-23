@@ -11,10 +11,12 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,6 +25,7 @@ import com.google.gson.Gson;
 import com.santao.bullfight.R;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.core.MultipartRequest;
 import com.santao.bullfight.core.Utils;
 import com.santao.bullfight.model.User;
 
@@ -30,7 +33,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,8 +45,8 @@ import butterknife.OnClick;
 
 public class RegThreeActivity extends BaseAppCompatActivity {
 
-    @Bind(R.id.imgAvatar)
-    ImageView imgAvatar;
+    @Bind(R.id.img1)
+    ImageView img1;
 
     @Bind(R.id.txtPosition)
     TextView txtPosition;
@@ -52,10 +59,15 @@ public class RegThreeActivity extends BaseAppCompatActivity {
     /*头像名称*/
     private static final String IMAGE_FILE_NAME = "faceImage.jpg";
 
+    private static final String IMAGE_FILE_LOCATION = Environment.getExternalStorageDirectory()+"/";
+
     /* 请求码*/
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
     private static final int RESULT_REQUEST_CODE = 2;
+
+
+    private Uri imageUri;
 
 
 
@@ -65,10 +77,20 @@ public class RegThreeActivity extends BaseAppCompatActivity {
         setContentView(R.layout.activity_reg_three);
         ButterKnife.bind(this);
 
+        initTopBar();
+
+
+
+        imageUri = Uri.fromFile(new File(IMAGE_FILE_LOCATION+ UUID.randomUUID().toString()+".jpg"));
+    }
+
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
         setTitle("注册");
     }
 
-    @OnClick({R.id.imgAvatar,R.id.txtSel})
+    @OnClick({R.id.img1,R.id.txtSel})
     public void avatarClick()
     {
         showDialog();
@@ -115,7 +137,7 @@ public class RegThreeActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
@@ -177,6 +199,8 @@ public class RegThreeActivity extends BaseAppCompatActivity {
 
     }
 
+
+
     private void showDialog() {
 
         new AlertDialog.Builder(this)
@@ -189,27 +213,22 @@ public class RegThreeActivity extends BaseAppCompatActivity {
                             case 0:
                                 Intent intentFromGallery = new Intent();
                                 intentFromGallery.setType("image/*"); // 设置文件类型
-                                intentFromGallery
-                                        .setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(intentFromGallery,
-                                        IMAGE_REQUEST_CODE);
+                                intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+                                startActivityForResult(intentFromGallery,IMAGE_REQUEST_CODE);
                                 break;
                             case 1:
 
-                                Intent intentFromCapture = new Intent(
-                                        MediaStore.ACTION_IMAGE_CAPTURE);
+                                Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 // 判断存储卡是否可以用，可用进行存储
                                 if (Utils.hasSdcard()) {
 
-                                    intentFromCapture.putExtra(
-                                            MediaStore.EXTRA_OUTPUT,
-                                            Uri.fromFile(new File(Environment
-                                                    .getExternalStorageDirectory(),
-                                                    IMAGE_FILE_NAME)));
+                                    String path = Utils.getPathByUri4kitkat(RegThreeActivity.this, imageUri);
+                                    File tmp = new File(path);
+
+                                    intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(tmp));
                                 }
 
-                                startActivityForResult(intentFromCapture,
-                                        CAMERA_REQUEST_CODE);
+                                startActivityForResult(intentFromCapture,CAMERA_REQUEST_CODE);
                                 break;
                         }
                     }
@@ -233,14 +252,20 @@ public class RegThreeActivity extends BaseAppCompatActivity {
 
         switch (requestCode) {
             case IMAGE_REQUEST_CODE:
-                startPhotoZoom(data.getData());
+
+
+                Uri uri = data.getData();
+
+                startPhotoZoom(uri);
+
+                //String path = Utils.getPathByUri4kitkat(this, uri);
+                //tempFile = new File(path);
+
                 break;
             case CAMERA_REQUEST_CODE:
                 if (Utils.hasSdcard()) {
-                    File tempFile = new File(
-                            Environment.getExternalStorageDirectory()
-                                    + IMAGE_FILE_NAME);
-                    startPhotoZoom(Uri.fromFile(tempFile));
+                    //tempFile = new File(Environment.getExternalStorageDirectory()+ IMAGE_FILE_NAME);
+                    startPhotoZoom(imageUri);
                 } else {
                     Toast.makeText(RegThreeActivity.this, R.string.no_card,
                             Toast.LENGTH_LONG).show();
@@ -275,6 +300,12 @@ public class RegThreeActivity extends BaseAppCompatActivity {
         intent.putExtra("outputX", 320);
         intent.putExtra("outputY", 320);
         intent.putExtra("return-data", true);
+
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        //intent.putExtra("noFaceDetection", true); // no face detection
+
+
         startActivityForResult(intent, 2);
     }
 
@@ -287,10 +318,89 @@ public class RegThreeActivity extends BaseAppCompatActivity {
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
             Drawable drawable = new BitmapDrawable(photo);
-            imgAvatar.setImageDrawable(drawable);
+            img1.setImageDrawable(drawable);
+
+            String path = Utils.getPathByUri4kitkat(this, imageUri);
+
+            File tmp = new File(path);
+
+
+
+            FileOutputStream fOut = null;
+            try {
+                tmp.createNewFile();
+                fOut = new FileOutputStream(tmp);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            photo.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
+            try {
+                fOut.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+            if(tmp!=null&&tmp.exists())
+            {
+                upload(tmp);
+            }
+
+
         }
     }
 
+    void upload(File file)
+    {
+        User user = baseApplication.getLoginUser();
+        String url = HttpUtil.getAbsoluteUrl("user/json/upavatar");
+        HashMap<String,String> params = new HashMap<String,String>();
+        params.put("uid", user.getId().toString());
+
+        MultipartRequest multipartRequest = new MultipartRequest(url,"file",file,params,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(RegThreeActivity.this, R.string.action_success,
+                                Toast.LENGTH_LONG).show();
+
+                        String path = Utils.getPathByUri4kitkat(RegThreeActivity.this, imageUri);
+
+                        File tmp = new File(path);
+
+                        tmp.delete();
+
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        error.printStackTrace();
+
+                    }
+                }
+        );
+
+        try {
+            Log.d("", multipartRequest.getBody().toString());
+        } catch (AuthFailureError authFailureError) {
+            authFailureError.printStackTrace();
+        }
+
+
+        BaseApplication.getHttpQueue().add(multipartRequest);
+
+
+
+    }
 
 
 

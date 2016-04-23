@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,14 +29,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FriendActivity extends BaseAppCompatActivity {
 
+    @Bind(R.id.txt1)
+    EditText txt1;
+
+    @Bind(R.id.btn1)
+    Button btn1;
 
     @Bind(R.id.itemList)
     RecyclerView recyclerView;
@@ -116,8 +126,9 @@ public class FriendActivity extends BaseAppCompatActivity {
             @Override
             public void onRefresh() {
                 page = 1;
-                adapter = new UserListAdapter(FriendActivity.this);
-                recyclerView.setAdapter(adapter);
+//                adapter = new UserListAdapter(FriendActivity.this);
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -141,6 +152,19 @@ public class FriendActivity extends BaseAppCompatActivity {
     }
 
 
+    @OnClick({R.id.btn1})
+    public void searchClick()
+    {
+
+        page = 1;
+        adapter.getArrayList().clear();
+//        adapter = new UserListAdapter(FriendActivity.this);
+        recyclerView.setAdapter(adapter);
+
+        search();
+    }
+
+
     private void getData() {
         isLoadingMore = true;
         String url = HttpUtil.getAbsoluteUrl("user/json/list?p="+page);
@@ -149,7 +173,61 @@ public class FriendActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        User entity = gson.fromJson(jsonArray.get(i).toString(), User.class);
+                        list.add(entity);
+                    }
+                    adapter.addArrayList(list);
+                    isLoadingMore = false;
+                    page = page + 1;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        BaseApplication.getHttpQueue().add(stringRequest);
+    }
+
+
+    private void search() {
+
+        String key = null;
+
+        try {
+            key = URLEncoder.encode(txt1.getText().toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        if(HttpUtil.isNullOrEmpty(key))
+        {
+            return;
+        }
+
+
+
+
+        isLoadingMore = true;
+        String url = HttpUtil.getAbsoluteUrl("user/json/searchuser?nickname="+key+"&p="+page);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");

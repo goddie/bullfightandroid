@@ -8,16 +8,29 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import com.santao.bullfight.R;
+import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.core.Utils;
 import com.santao.bullfight.event.MatchFightEvent;
+import com.santao.bullfight.event.PageEvent;
 import com.santao.bullfight.event.TeamEvent;
 import com.santao.bullfight.fragment.LeagueFragment;
 import com.santao.bullfight.fragment.MatchTeamFragment;
@@ -30,6 +43,11 @@ import com.santao.bullfight.widget.TabButton;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,7 +75,11 @@ public class MatchFightActivity extends BaseAppCompatActivity {
     @Bind(R.id.imgRight)
     ImageView imgRight;
 
+    @Bind(R.id.mainLayout)
+    FrameLayout mainLayout;
 
+@Bind(R.id.red)
+ImageView red;
 
 
 
@@ -74,6 +96,8 @@ public class MatchFightActivity extends BaseAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab1);
         ButterKnife.bind(this);
+
+        EventBus.getDefault().register(this);
 
         init();
 
@@ -96,6 +120,31 @@ public class MatchFightActivity extends BaseAppCompatActivity {
         left.setSelected(true);
 
 
+
+
+//        ViewTreeObserver vto = mainLayout.getViewTreeObserver();
+//
+//
+//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            public void onGlobalLayout() {
+//                // remove the listener so it won't get called again if the view layout changes
+//                mainLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                // add your calculations here
+//                getNotice();
+//            }});
+
+
+        final Handler handler=new Handler();
+        Runnable runnable=new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                getNotice();
+                handler.postDelayed(this, 5000);
+            }
+        };
+
+        handler.postDelayed(runnable, 5000);
 
     }
 
@@ -120,6 +169,13 @@ public class MatchFightActivity extends BaseAppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick({R.id.imgLeft})
@@ -212,6 +268,7 @@ public class MatchFightActivity extends BaseAppCompatActivity {
     }
 
 
+
     public void switchContent(Fragment from, Fragment to) {
         if (mContent != to) {
             mContent = to;
@@ -226,8 +283,76 @@ public class MatchFightActivity extends BaseAppCompatActivity {
     }
 
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        getNotice();
+
+    }
 
 
+    public void onEventMainThread(PageEvent event) {
+
+//        int idx = (int)event.getData();
+//
+//        //Log.d("page change=====", idx+"");
+//
+//        if(idx==0)
+//        {
+//            getNotice();
+//        }
+    }
+
+
+    void getNotice()
+    {
+
+        Log.d("getNotice","getNotice");
+
+        User user  = Utils.getLocalUser(MatchFightActivity.this);
+
+        if(user==null)
+        {
+            return;
+        }
+
+        String url = HttpUtil.getAbsoluteUrl("message/json/countnew?uid=" + user.getId().toString());
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                ArrayList<Object> list = new ArrayList<Object>();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    int rs = jsonObject.getInt("data");
+
+                    if(rs>0)
+                    {
+                        red.setVisibility(View.VISIBLE);
+                    }else
+                    {
+                        red.setVisibility(View.INVISIBLE);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        BaseApplication.getHttpQueue().add(stringRequest);
+    }
 
 
 

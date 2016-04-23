@@ -9,9 +9,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import com.santao.bullfight.R;
+import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.core.Utils;
 import com.santao.bullfight.fragment.LeagueAssistFragment;
@@ -30,9 +38,13 @@ import com.santao.bullfight.widget.CircleTransform;
 import com.santao.bullfight.widget.TabButton;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.awt.font.TextAttribute;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,8 +83,11 @@ public class TeamDetailActivity extends BaseAppCompatActivity {
     @Bind(R.id.tab4)
     TabButton tab4;
 
+    @Bind(R.id.holder1)
+    LinearLayout holder1;
 
-
+    @Bind(R.id.holder2)
+    LinearLayout holder2;
 
     private Fragment mContent;
     private Fragment fragment1;
@@ -84,6 +99,8 @@ public class TeamDetailActivity extends BaseAppCompatActivity {
     private FragmentManager fragmentManager;
 
     private Team team;
+
+    private int isUser = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +117,9 @@ public class TeamDetailActivity extends BaseAppCompatActivity {
             team = (Team)bundle.getSerializable("team");
         }
 
+        if (bundle != null && bundle.containsKey("isUser")) {
+            isUser = bundle.getInt("isUser");
+        }
 
 
 
@@ -230,18 +250,28 @@ public class TeamDetailActivity extends BaseAppCompatActivity {
 
     void checkAdmin()
     {
+        holder1.setVisibility(View.GONE);
+        holder2.setVisibility(View.GONE);
+
         User user = Utils.getLocalUser(this);
-        if(user==null)
+        if(user==null || team == null)
         {
-            btn1.setVisibility(View.GONE);
-            btn2.setVisibility(View.GONE);
+            holder1.setVisibility(View.GONE);
+            holder2.setVisibility(View.GONE);
+            return;
         }
 
-        if(team!=null&&!user.getId().toString().equals(team.getAdmin().getId().toString()))
+        if(user.getId().toString().equals(team.getAdmin().getId().toString()))
         {
-            btn1.setVisibility(View.GONE);
-            btn2.setVisibility(View.GONE);
+            holder1.setVisibility(View.VISIBLE);
         }
+
+        if(isUser==1)
+        {
+            holder2.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     @OnClick({R.id.btn1})
@@ -270,5 +300,47 @@ public class TeamDetailActivity extends BaseAppCompatActivity {
         startActivity(intent);
     }
 
+
+    @OnClick({R.id.btn3})
+    public void quit()
+    {
+
+        User user = Utils.getLocalUser(TeamDetailActivity.this);
+        if(user==null)
+        {
+            return;
+        }
+
+        String url = HttpUtil.getAbsoluteUrl("teamuser/json/quit?tid="+team.getId().toString()+"&uid=" + user.getId().toString());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                ArrayList<Object> list = new ArrayList<Object>();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int code =  jsonObject.getInt("code");
+
+                    if(code==1)
+                    {
+                        Toast.makeText(TeamDetailActivity.this, getString(R.string.action_success), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        BaseApplication.getHttpQueue().add(stringRequest);
+    }
 
 }

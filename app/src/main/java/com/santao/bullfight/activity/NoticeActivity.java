@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,14 +18,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
-import com.santao.bullfight.adapter.MatchTeamListAdpater;
 import com.santao.bullfight.adapter.NoticeAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
-import com.santao.bullfight.model.MatchFight;
 import com.santao.bullfight.model.Message;
 import com.santao.bullfight.model.User;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
+import com.santao.bullfight.widget.OnRecyclerViewItemLongClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +48,7 @@ public class NoticeActivity extends BaseAppCompatActivity {
     private boolean isLoadingMore = false;
     private String leagueid=null;
 
-    private NoticeAdapter adpater;
+    private NoticeAdapter adapter;
 
     private User user;
 
@@ -68,8 +66,8 @@ public class NoticeActivity extends BaseAppCompatActivity {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
-        adpater = new NoticeAdapter(this);
-        recyclerView.setAdapter(adpater);
+        adapter = new NoticeAdapter(this);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -83,7 +81,7 @@ public class NoticeActivity extends BaseAppCompatActivity {
 
                 //Log.d("", "newState:" + newState + " " + adapter.getItemCount());
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adpater.getItemCount()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
                     getData();
                 }
 
@@ -99,28 +97,29 @@ public class NoticeActivity extends BaseAppCompatActivity {
             }
         });
 
-        adpater.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
 
             @Override
             public void onItemClick(View view, Object id) {
 
 
-                Message entity  = (Message)id;
-                if(entity.getType()==1)
-                {
+                Message entity = (Message) id;
+
+                updateRead(entity);
+
+
+                if (entity.getType() == 1) {
 
                 }
 
 
                 //邀请入队
-                if(entity.getType()==2)
-                {
+                if (entity.getType() == 2) {
                     join(entity);
                 }
 
 
-                if(entity.getType()==3)
-                {
+                if (entity.getType() == 3) {
 
                 }
 
@@ -134,6 +133,35 @@ public class NoticeActivity extends BaseAppCompatActivity {
             }
         });
 
+        adapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View view, Object tag) {
+                final Message entity = (Message) tag;
+
+
+                new android.support.v7.app.AlertDialog.Builder(NoticeActivity.this)
+                        .setTitle("确认删除?")
+                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                delete(entity);
+
+                            }
+                        })
+                        .setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+
+
+            }
+        });
+
+
 
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAppOrange));
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -141,8 +169,9 @@ public class NoticeActivity extends BaseAppCompatActivity {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new NoticeAdapter(NoticeActivity.this);
-                recyclerView.setAdapter(adpater);
+//                adapter = new NoticeAdapter(NoticeActivity.this);
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -186,7 +215,7 @@ public class NoticeActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -194,7 +223,7 @@ public class NoticeActivity extends BaseAppCompatActivity {
                         Message entity = gson.fromJson(jsonArray.get(i).toString(), Message.class);
                         list.add(entity);
                     }
-                    adpater.addArrayList(list);
+                    adapter.addArrayList(list);
                     isLoadingMore = false;
                     page = page + 1;
 
@@ -215,7 +244,7 @@ public class NoticeActivity extends BaseAppCompatActivity {
 
     }
 
-    void join(Message message)
+    void join(final Message message)
     {
 
         final String tid = message.getTeam().getId().toString();
@@ -241,21 +270,20 @@ public class NoticeActivity extends BaseAppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             int rs = jsonObject.getInt("code");
 
-                            JSONObject obj = jsonObject.getJSONObject("data");
 
                             if(rs==1)
                             {
-                                Message entity = gson.fromJson(obj.toString(),Message.class);
-
 
                                 Toast.makeText(NoticeActivity.this, getString(R.string.action_success), Toast.LENGTH_SHORT).show();
 
-                                delete(entity);
+                                delete(message);
 
                             }else
                             {
                                 Toast.makeText(NoticeActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
                             }
+
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -307,10 +335,10 @@ public class NoticeActivity extends BaseAppCompatActivity {
     }
 
 
-    void delete(Message message)
+    void delete(Message entity)
     {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, HttpUtil.getAbsoluteUrl("message/json/delete?uid="
-                +user.getId().toString()+"&mid="+message.getId().toString()), new Response.Listener<String>() {
+                +user.getId().toString()+"&mid="+ entity.getId()), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -322,11 +350,7 @@ public class NoticeActivity extends BaseAppCompatActivity {
 
                     if(rs==1)
                     {
-                        Toast.makeText(NoticeActivity.this, getString(R.string.action_success), Toast.LENGTH_SHORT).show();
-
-                    }else
-                    {
-                        //Toast.makeText(MyTeamMemberActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+                        reload();
                     }
 
                 } catch (JSONException e) {
@@ -342,5 +366,49 @@ public class NoticeActivity extends BaseAppCompatActivity {
         });
 
         BaseApplication.getHttpQueue().add(stringRequest);
+    }
+
+
+    void updateRead(Message entity)
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, HttpUtil.getAbsoluteUrl("message/json/updateread?mid="+ entity.getId()), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int rs = jsonObject.getInt("code");
+
+//                    if(rs==1)
+//                    {
+//                        Toast.makeText(NoticeActivity.this, getString(R.string.action_success), Toast.LENGTH_SHORT).show();
+//
+//                    }else
+//                    {
+//                        //Toast.makeText(MyTeamMemberActivity.this, jsonObject.getString("msg"), Toast.LENGTH_SHORT).show();
+//                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        BaseApplication.getHttpQueue().add(stringRequest);
+    }
+
+    void reload()
+    {
+        page = 1;
+        adapter.clear();
+        getData();
     }
 }

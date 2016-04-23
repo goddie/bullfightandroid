@@ -2,6 +2,8 @@ package com.santao.bullfight.adapter;
 
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +28,7 @@ public class NoticeAdapter extends  BaseRecyclerViewAdapter{
 
     public NoticeAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override
@@ -36,10 +38,13 @@ public class NoticeAdapter extends  BaseRecyclerViewAdapter{
 
         if (entity.getStatus()==1)
         {
-            itemViewHolder.img1.setVisibility(View.VISIBLE);
+            itemViewHolder.img1.setVisibility(View.INVISIBLE);
+            itemViewHolder.txt1.setTextColor(mContext.getResources().getColor(R.color.colorAppFont));
+
         }else
         {
-            itemViewHolder.img1.setVisibility(View.INVISIBLE);
+            itemViewHolder.img1.setVisibility(View.VISIBLE);
+            itemViewHolder.txt1.setTextColor(Color.WHITE);
         }
 
         itemViewHolder.txt1.setText(entity.getTitle());

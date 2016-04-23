@@ -19,14 +19,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import com.santao.bullfight.adapter.ContentAdapter;
 import com.santao.bullfight.R;
+import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.core.UpdateChecker;
+import com.santao.bullfight.core.Utils;
+import com.santao.bullfight.event.PageEvent;
+import com.santao.bullfight.event.TeamEvent;
 import com.santao.bullfight.model.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends BaseAppCompatActivity implements OnClickListener,OnPageChangeListener{
 
@@ -78,6 +91,10 @@ public class MainActivity extends BaseAppCompatActivity implements OnClickListen
 
 
         ButterKnife.bind(this);
+
+        EventBus.getDefault().register(this);
+
+
         // 初始化控件
         initView();
         // 初始化底部按钮事件
@@ -205,6 +222,14 @@ public class MainActivity extends BaseAppCompatActivity implements OnClickListen
         tv_tab4.setTextColor(0xffffffff);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     public void onPageScrollStateChanged(int arg0) {
 
@@ -212,6 +237,8 @@ public class MainActivity extends BaseAppCompatActivity implements OnClickListen
 
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+
 
     }
 
@@ -255,7 +282,27 @@ public class MainActivity extends BaseAppCompatActivity implements OnClickListen
                 break;
         }
 
+//        PageEvent event = new PageEvent(PageEvent.PAGE_CHANGE);
+//        event.setData(arg0);
+//        EventBus.getDefault().post(event);
+
     }
+
+
+    public void onEventMainThread(PageEvent event) {
+
+        if(event.getEventName().equals(PageEvent.PAGE_SWITCH))
+        {
+            int idx = (int)event.getData();
+//            onPageSelected(idx);
+            ll_tab1.performClick();
+        }
+
+    }
+
+
+
+
 
 }
 

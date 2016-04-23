@@ -104,17 +104,22 @@ public class CommetAddActivity extends BaseAppCompatActivity {
 
 
         String url = null;
+
+
         try {
-            url = HttpUtil.getAbsoluteUrl("commet/json/add?uid=" + uid + "&content=" + URLEncoder.encode(content, "UTF-8") + "&mfid=" + mfid + "&aid=" + aid + "&ruid=" + ruid);
+            content = URLEncoder.encode(content, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
+        url = HttpUtil.getAbsoluteUrl("commet/json/add?uid=" + uid + "&content=" +content + "&mfid=" + mfid + "&aid=" + aid + "&ruid=" + ruid);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 

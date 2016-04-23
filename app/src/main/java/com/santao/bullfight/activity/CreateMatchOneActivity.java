@@ -22,14 +22,24 @@ public class CreateMatchOneActivity extends BaseAppCompatActivity {
         setContentView(R.layout.activity_create_match_one);
 
         ButterKnife.bind(this);
+        initTopBar();
+
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null && bundle.containsKey("matchFight")) {
             matchFight = (MatchFight)bundle.getSerializable("matchFight");
+        }else
+        {
+            matchFight = new MatchFight();
         }
 
     }
 
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
+        setTitle("创建比赛");
+    }
 
     @OnClick({R.id.imgClose})
     public void imgClick(View v)
@@ -60,6 +70,7 @@ public class CreateMatchOneActivity extends BaseAppCompatActivity {
 
             startActivity(intent);
 
+            finish();
 
         }
 

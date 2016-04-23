@@ -27,7 +27,7 @@ public class MatchInfoUserAdapter extends BaseRecyclerViewAdapter {
 
     public MatchInfoUserAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

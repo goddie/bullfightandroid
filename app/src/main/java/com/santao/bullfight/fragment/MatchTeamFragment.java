@@ -164,8 +164,9 @@ public class MatchTeamFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adapter = new MatchTeamListAdpater(getActivity());
-                recyclerView.setAdapter(adapter);
+//                adapter = new MatchTeamListAdpater(getActivity());
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -202,7 +203,7 @@ public class MatchTeamFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -256,7 +257,7 @@ public class MatchTeamFragment extends BaseFragment {
 
         if(event.getEventName().equals(MatchFightEvent.MATCHE_FILTER))
         {
-            int idx = (int)event.getData();
+            int idx = Integer.parseInt(event.getData().toString());
 
             if (idx==0)
             {

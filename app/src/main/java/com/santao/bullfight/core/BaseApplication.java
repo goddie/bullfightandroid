@@ -3,11 +3,24 @@ package com.santao.bullfight.core;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.santao.bullfight.R;
 import com.santao.bullfight.activity.LoginActivity;
 import com.santao.bullfight.model.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by goddie on 16/3/8.
@@ -81,6 +94,8 @@ public class BaseApplication extends Application {
             User user = Utils.getLocalUser(getApplicationContext());
             if(user!=null)
             {
+                reload();
+
                 this.loginUser = user;
                 return this.loginUser;
             }
@@ -112,4 +127,55 @@ public class BaseApplication extends Application {
     {
         this.loginUser = user;
     }
+
+
+    private void reload()
+    {
+
+        User user = Utils.getLocalUser(getApplicationContext());
+
+        String url = HttpUtil.getAbsoluteUrl("user/json/login?username=" + user.getUsername()+"&password="+user.getPassword());
+
+        Log.d("login", url);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                ArrayList<Object> list = new ArrayList<Object>();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    int code = jsonObject.getInt("code");
+
+                    if(code==1)
+                    {
+
+                        JSONObject obj = jsonObject.getJSONObject("data");
+
+
+                        User entity = gson.fromJson(obj.toString(), User.class);
+
+                        baseApplication.setLoginUser(entity);
+
+                        Utils.saveLocalUser(getContext(),entity);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        BaseApplication.getHttpQueue().add(stringRequest);
+    }
+
 }

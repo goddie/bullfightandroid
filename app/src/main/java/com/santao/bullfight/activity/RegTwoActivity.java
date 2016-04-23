@@ -19,6 +19,8 @@ import com.santao.bullfight.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -41,19 +43,46 @@ public class RegTwoActivity extends BaseAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reg_two);
         ButterKnife.bind(this);
-        setTitle("注册");
+
+        initTopBar();
+
+
 
     }
 
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
+        setTitle("注册");
+    }
 
     @OnClick({R.id.btn1})
     public  void next()
     {
         User user = baseApplication.getLoginUser();
 
-        String username = txt1.getText().toString();
-        String password = txt2.getText().toString();
-        String nickname = txt3.getText().toString();
+        String username = "";
+        try {
+            username = URLEncoder.encode(txt1.getText().toString(),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        String password =  "";
+        try {
+            password = URLEncoder.encode(txt2.getText().toString(),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        String nickname =  "";
+        try {
+            nickname = URLEncoder.encode(txt3.getText().toString(),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         if(user==null || HttpUtil.isNullOrEmpty(username) || HttpUtil.isNullOrEmpty(password) || HttpUtil.isNullOrEmpty(nickname))
         {
@@ -73,7 +102,7 @@ public class RegTwoActivity extends BaseAppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 

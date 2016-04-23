@@ -13,7 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
@@ -49,6 +48,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -105,7 +106,7 @@ public class MyInfoActivity extends BaseAppCompatActivity {
 
     private static final String IMAGE_FILE_LOCATION = Environment.getExternalStorageDirectory()+"/";
 
-    private Uri imageUri;
+    private Uri imageUri = Uri.fromFile(new File(IMAGE_FILE_LOCATION+ UUID.randomUUID().toString()+".jpg"));
 
     private File tempFile;
 
@@ -121,7 +122,7 @@ public class MyInfoActivity extends BaseAppCompatActivity {
 
         bind();
 
-        imageUri = Uri.fromFile(new File(IMAGE_FILE_LOCATION+ UUID.randomUUID().toString()+".jpg"));
+
 
     }
 
@@ -144,20 +145,30 @@ public class MyInfoActivity extends BaseAppCompatActivity {
     void save()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("&nickname=" + txt1.getText());
-        sb.append("&birthday=" + txt2.getText());
-        sb.append("&city=" + txt3.getText());
-        sb.append("&age=" + txt4.getText());
-        sb.append("&height=" + txt5.getText());
-        sb.append("&weight=" + txt6.getText());
-        sb.append("&position=" + txt7.getText());
+
+        try {
+
+            sb.append("&nickname=" + URLEncoder.encode(txt1.getText().toString(),"UTF-8"));
+            sb.append("&birthday=" + txt2.getText().toString());
+            sb.append("&city=" +  URLEncoder.encode(txt3.getText().toString(),"UTF-8"));
+            sb.append("&age=" + txt4.getText().toString());
+            sb.append("&height=" + txt5.getText().toString());
+            sb.append("&weight=" + txt6.getText().toString());
+            sb.append("&position=" + URLEncoder.encode(txt7.getText().toString(),"UTF-8"));
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, HttpUtil.getAbsoluteUrl("user/json/update?uid="+user.getId().toString()+sb.toString()), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
@@ -271,27 +282,22 @@ public class MyInfoActivity extends BaseAppCompatActivity {
                             case 0:
                                 Intent intentFromGallery = new Intent();
                                 intentFromGallery.setType("image/*"); // 设置文件类型
-                                intentFromGallery
-                                        .setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(intentFromGallery,
-                                        IMAGE_REQUEST_CODE);
+                                intentFromGallery.setAction(Intent.ACTION_GET_CONTENT);
+                                startActivityForResult(intentFromGallery,IMAGE_REQUEST_CODE);
                                 break;
                             case 1:
 
-                                Intent intentFromCapture = new Intent(
-                                        MediaStore.ACTION_IMAGE_CAPTURE);
+                                Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                                 // 判断存储卡是否可以用，可用进行存储
                                 if (Utils.hasSdcard()) {
 
-                                    intentFromCapture.putExtra(
-                                            MediaStore.EXTRA_OUTPUT,
-                                            Uri.fromFile(new File(Environment
-                                                    .getExternalStorageDirectory(),
-                                                    IMAGE_FILE_NAME)));
+                                    String path = Utils.getPathByUri4kitkat(MyInfoActivity.this, imageUri);
+                                    File tmp = new File(path);
+
+                                    intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(tmp));
                                 }
 
-                                startActivityForResult(intentFromCapture,
-                                        CAMERA_REQUEST_CODE);
+                                startActivityForResult(intentFromCapture,CAMERA_REQUEST_CODE);
                                 break;
                         }
                     }

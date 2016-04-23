@@ -3,15 +3,12 @@ package com.santao.bullfight.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,7 +22,6 @@ import com.santao.bullfight.adapter.MatchTeamListAdpater;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.model.MatchFight;
-import com.santao.bullfight.model.Team;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
 
 import org.json.JSONArray;
@@ -33,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -51,7 +46,7 @@ public class LeagueFightFragment extends BaseFragment {
     private boolean isLoadingMore = false;
     private String leagueid=null;
 
-    private MatchTeamListAdpater adpater;
+    private MatchTeamListAdpater adapter;
 
     @Override
     public int getContentViewId() {
@@ -68,8 +63,8 @@ public class LeagueFightFragment extends BaseFragment {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-        adpater = new MatchTeamListAdpater(getActivity());
-        recyclerView.setAdapter(adpater);
+        adapter = new MatchTeamListAdpater(getActivity());
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -83,7 +78,7 @@ public class LeagueFightFragment extends BaseFragment {
 
                 //Log.d("", "newState:" + newState + " " + adapter.getItemCount());
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adpater.getItemCount()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
                     getData();
                 }
 
@@ -99,21 +94,20 @@ public class LeagueFightFragment extends BaseFragment {
             }
         });
 
-        adpater.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
 
             @Override
             public void onItemClick(View view, Object id) {
 
-                MatchFight entity = (MatchFight)id;
+                MatchFight entity = (MatchFight) id;
 
                 //未接招
-                if(entity.getStatus()==0)
-                {
+                if (entity.getStatus() == 0) {
                     Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
                     //intent.putExtra("id", id.toString());
 
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("matchfight",entity);
+                    bundle.putSerializable("matchfight", entity);
 
                     intent.putExtras(bundle);
 
@@ -124,20 +118,18 @@ public class LeagueFightFragment extends BaseFragment {
 
 
                 //未开始
-                if(entity.getStatus()==1)
-                {
+                if (entity.getStatus() == 1) {
 
                 }
 
 
                 //已结束
-                if(entity.getStatus()==2)
-                {
+                if (entity.getStatus() == 2) {
                     Intent intent = new Intent(getActivity(), MatchDetailFinishActivity.class);
                     //intent.putExtra("id", id.toString());
 
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("matchfight",entity);
+                    bundle.putSerializable("matchfight", entity);
 
                     intent.putExtras(bundle);
 
@@ -157,8 +149,9 @@ public class LeagueFightFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new MatchTeamListAdpater(getActivity());
-                recyclerView.setAdapter(adpater);
+//                adapter = new MatchTeamListAdpater(getActivity());
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -181,7 +174,7 @@ public class LeagueFightFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -189,7 +182,7 @@ public class LeagueFightFragment extends BaseFragment {
                         MatchFight entity = gson.fromJson(jsonArray.get(i).toString(), MatchFight.class);
                         list.add(entity);
                     }
-                    adpater.addArrayList(list);
+                    adapter.addArrayList(list);
                     isLoadingMore = false;
                     page = page + 1;
 

@@ -2,15 +2,12 @@ package com.santao.bullfight.fragment;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -20,7 +17,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
 import com.santao.bullfight.adapter.LeagueReboundAdapter;
-import com.santao.bullfight.adapter.LeagueTotalAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.model.DataUser;
@@ -47,7 +43,7 @@ public class LeagueReboundFragment extends BaseFragment {
     private boolean isLoadingMore = false;
 
 
-    private LeagueReboundAdapter adpater;
+    private LeagueReboundAdapter adapter;
     private String leagueid=null;
 
     @Override
@@ -67,8 +63,8 @@ public class LeagueReboundFragment extends BaseFragment {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
-        adpater = new LeagueReboundAdapter(getActivity());
-        recyclerView.setAdapter(adpater);
+        adapter = new LeagueReboundAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -80,9 +76,9 @@ public class LeagueReboundFragment extends BaseFragment {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                //Log.d("", "newState:" + newState + " " + adpater.getItemCount());
+                //Log.d("", "newState:" + newState + " " + adapter.getItemCount());
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adpater.getItemCount()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
                     getData();
                 }
 
@@ -98,7 +94,7 @@ public class LeagueReboundFragment extends BaseFragment {
             }
         });
 
-        adpater.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
 
             @Override
             public void onItemClick(View view, Object id) {
@@ -119,8 +115,9 @@ public class LeagueReboundFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                adpater = new LeagueReboundAdapter(getActivity());
-                recyclerView.setAdapter(adpater);
+//                adapter = new LeagueReboundAdapter(getActivity());
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
 
             }
@@ -144,7 +141,7 @@ public class LeagueReboundFragment extends BaseFragment {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -152,7 +149,7 @@ public class LeagueReboundFragment extends BaseFragment {
                         DataUser entity = gson.fromJson(jsonArray.get(i).toString(), DataUser.class);
                         list.add(entity);
                     }
-                    adpater.addArrayList(list);
+                    adapter.addArrayList(list);
                     isLoadingMore = false;
                     page = page + 1;
 

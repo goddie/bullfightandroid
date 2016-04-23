@@ -19,8 +19,6 @@ import com.santao.bullfight.adapter.ArenaListAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.event.ArenaEvent;
-import com.santao.bullfight.event.BaseEvent;
-import com.santao.bullfight.event.TeamEvent;
 import com.santao.bullfight.model.Arena;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
 
@@ -45,7 +43,7 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
 
 
-    private ArenaListAdapter listAdapter;
+    private ArenaListAdapter adapter;
     private int page = 1;
     private boolean isLoadingMore = false;
     private int matchType = 1;
@@ -62,11 +60,11 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        listAdapter = new ArenaListAdapter(this);
+        adapter = new ArenaListAdapter(this);
 
-        recyclerView.setAdapter(listAdapter);
+        recyclerView.setAdapter(adapter);
 
-        listAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+        adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, Object tag) {
 
@@ -95,12 +93,12 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
                 //Log.d("test", "onScrolled");
 
                 int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-                if (lastVisibleItemPosition + 1 == listAdapter.getItemCount()) {
+                if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
                     //Log.d("test", "loading executed");
 
                     boolean isRefreshing = swipeRefreshLayout.isRefreshing();
                     if (isRefreshing) {
-                        listAdapter.notifyItemRemoved(listAdapter.getItemCount());
+                        adapter.notifyItemRemoved(adapter.getItemCount());
                         return;
                     }
                     if (!isLoadingMore) {
@@ -118,8 +116,9 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 page = 1;
-                listAdapter = new ArenaListAdapter(CreateMatchArenaActivity.this);
-                recyclerView.setAdapter(listAdapter);
+//                adapter = new ArenaListAdapter(CreateMatchArenaActivity.this);
+//                recyclerView.setAdapter(adapter);
+                adapter.clear();
                 getData();
             }
         });
@@ -143,7 +142,7 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
             public void onResponse(String response) {
 
                 Gson gson = new Gson();
-                ArrayList<Object> list = new ArrayList<>();
+                ArrayList<Object> list = new ArrayList<Object>();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -151,7 +150,7 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
                         Arena entity = gson.fromJson(jsonArray.get(i).toString(), Arena.class);
                         list.add(entity);
                     }
-                    listAdapter.addArrayList(list);
+                    adapter.addArrayList(list);
                     isLoadingMore = false;
                     page=page+1;
 

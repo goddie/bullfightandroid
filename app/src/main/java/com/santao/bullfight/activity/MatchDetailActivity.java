@@ -1,7 +1,6 @@
 package com.santao.bullfight.activity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -149,7 +148,7 @@ public class MatchDetailActivity extends BaseAppCompatActivity {
     @Override
     public void onTopFinish() {
         super.onTopFinish();
-        setTxtRight("写评论");
+        setTxtRight("评论");
 
     }
 

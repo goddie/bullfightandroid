@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.santao.bullfight.event.BaseEvent;
 import com.santao.bullfight.model.Arena;
 import com.santao.bullfight.model.MatchFight;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
-public class CreateMatchThreeActivity extends AppCompatActivity {
+public class CreateMatchThreeActivity extends BaseAppCompatActivity {
 
     @Bind(R.id.txtPlace)
     TextView txtPlace;
@@ -42,6 +44,9 @@ public class CreateMatchThreeActivity extends AppCompatActivity {
     @Bind(R.id.txtEnd)
     TextView txtEnd;
 
+    @Bind(R.id.txtInfo)
+    EditText txtInfo;
+
 
     private MatchFight matchFight;
 
@@ -52,6 +57,8 @@ public class CreateMatchThreeActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        initTopBar();
+
         EventBus.getDefault().register(this);
 
         Bundle bundle = getIntent().getExtras();
@@ -59,6 +66,12 @@ public class CreateMatchThreeActivity extends AppCompatActivity {
         if (bundle != null && bundle.containsKey("matchFight")) {
             matchFight = (MatchFight)bundle.getSerializable("matchFight");
         }
+    }
+
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
+        setTitle("创建比赛");
     }
 
     @Override
@@ -80,6 +93,7 @@ public class CreateMatchThreeActivity extends AppCompatActivity {
 
         txtPlace.setText(entity.getName());
 
+        matchFight.setArena(entity);
         //Log.d("harvic", msg);
     }
 
@@ -98,6 +112,28 @@ public class CreateMatchThreeActivity extends AppCompatActivity {
 
         if(matchFight.getMatchType()==1)
         {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            String date = txtDate.getText().toString();
+            String start = txtStart.getText().toString();
+            String end = txtEnd.getText().toString();
+
+            Date dateStart = new Date();
+            Date dateEnd = new Date();
+
+            try {
+                dateStart = sdf.parse(date +" " + start + ":00");
+                dateEnd = sdf.parse(date +" " + end+":00");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            matchFight.setStart(dateStart.getTime());
+            matchFight.setEnd(dateEnd.getTime());
+
+            matchFight.setContent(txtInfo.getText().toString());
+
             Intent intent = new Intent(CreateMatchThreeActivity.this, CreateMatchFourActivity.class);
 
             Bundle bundle = new Bundle();
@@ -106,6 +142,9 @@ public class CreateMatchThreeActivity extends AppCompatActivity {
             intent.putExtras(bundle);
 
             startActivity(intent);
+
+
+            finish();
         }
 
 

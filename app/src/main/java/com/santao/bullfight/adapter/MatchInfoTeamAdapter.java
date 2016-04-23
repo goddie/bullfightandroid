@@ -23,7 +23,7 @@ public class MatchInfoTeamAdapter extends BaseRecyclerViewAdapter {
 
     public MatchInfoTeamAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

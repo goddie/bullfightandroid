@@ -26,7 +26,7 @@ public class MatchWildListAdapter extends BaseRecyclerViewAdapter {
 
     public MatchWildListAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

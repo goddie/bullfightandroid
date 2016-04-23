@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "com.santao.bullfight"
-        minSdkVersion 20
+        minSdkVersion 17
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 7
+        versionName '1.07'
     }
     buildTypes {
         release {
@@ -39,6 +39,7 @@ dependencies {
     compile 'com.android.support:design:23.2.0'
     compile 'org.apache.httpcomponents:httpmime:4.3.1'
     compile 'org.apache.httpcomponents:httpcore:4.3.1'
+    compile 'jp.wasabeef:picasso-transformations:2.1.0'
 }
 
 

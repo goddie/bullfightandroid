@@ -33,7 +33,7 @@ public class TeamMemberAddAdapter extends BaseRecyclerViewAdapter {
 
     public TeamMemberAddAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

@@ -5,12 +5,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import com.santao.bullfight.R;
+import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.event.TeamEvent;
 import com.santao.bullfight.model.MatchFight;
 import com.santao.bullfight.model.Team;
+import com.santao.bullfight.model.User;
+import com.santao.bullfight.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,6 +61,8 @@ public class CreateMatchTwoActivity extends BaseAppCompatActivity {
 
         ButterKnife.bind(this);
 
+        initTopBar();
+
         EventBus.getDefault().register(this);
 
         baseApplication.getLoginUser();
@@ -58,6 +74,15 @@ public class CreateMatchTwoActivity extends BaseAppCompatActivity {
             matchFight = (MatchFight)bundle.getSerializable("matchFight");
         }
 
+        bindTeam();
+
+    }
+
+
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
+        setTitle("创建比赛");
     }
 
 
@@ -86,8 +111,10 @@ public class CreateMatchTwoActivity extends BaseAppCompatActivity {
             return;
         }
 
-        Picasso.with(getApplicationContext()).load(HttpUtil.BASE_URL + entity.getAvatar()).placeholder(R.mipmap.holder)
+        Picasso.with(getApplicationContext()).load(HttpUtil.BASE_URL + entity.getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder)
                 .into(imgTeam);
+
+        matchFight.setHost(entity);
 
         //Log.d("harvic", msg);
     }
@@ -105,6 +132,27 @@ public class CreateMatchTwoActivity extends BaseAppCompatActivity {
 
         ImageView imageView = (ImageView)v;
         imageView.setImageResource(R.mipmap.shared_picker_selected);
+
+        if(v.getId() == R.id.img1)
+        {
+            matchFight.setTeamSize(1);
+        }
+
+        if(v.getId() == R.id.img2)
+        {
+            matchFight.setTeamSize(3);
+        }
+
+        if(v.getId() == R.id.img3)
+        {
+            matchFight.setTeamSize(4);
+        }
+
+        if(v.getId() == R.id.img4)
+        {
+            matchFight.setTeamSize(5);
+        }
+
     }
 
 
@@ -121,5 +169,56 @@ public class CreateMatchTwoActivity extends BaseAppCompatActivity {
         intent.putExtras(bundle);
 
         startActivity(intent);
+
+        finish();
+    }
+
+
+    void bindTeam()
+    {
+        User user = baseApplication.getLoginUser();
+
+        String url = HttpUtil.getAbsoluteUrl("teamuser/json/mymanateam?uid=" + user.getId());
+
+        final Team[] team = {null};
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                ArrayList<Object> list = new ArrayList<Object>();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                    if(jsonArray.length()>0)
+                    {
+                        team[0] = gson.fromJson(jsonArray.get(0).toString(), Team.class);
+
+                        Picasso.with(getApplicationContext()).load(HttpUtil.BASE_URL + team[0].getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder)
+                                .into(imgTeam);
+                        matchFight.setHost(team[0]);
+
+                    }
+
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        team[0] = gson.fromJson(jsonArray.get(i).toString(), Team.class);
+//                        list.add(entity);
+//                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        BaseApplication.getHttpQueue().add(stringRequest);
     }
 }

@@ -2,7 +2,6 @@ package com.santao.bullfight.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +39,7 @@ public class MatchTeamListAdpater extends  BaseRecyclerViewAdapter {
 
     public MatchTeamListAdpater(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override

@@ -232,6 +232,9 @@ public class UpdateChecker {
     }
 
     public void showUpdateDialog() {
+
+
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         //builder.setIcon(R.drawable.icon);
         builder.setTitle("有新版本");
@@ -268,7 +271,13 @@ public class UpdateChecker {
         builder.show();
     }
 
+
+
+
+
     public void downLoadApk() {
+
+
         String apkUrl = mAppVersion.getApkUrl();
         String dir = mContext.getExternalFilesDir( "apk").getAbsolutePath();
         File folder = Environment.getExternalStoragePublicDirectory(dir);
@@ -278,7 +287,7 @@ public class UpdateChecker {
             folder.mkdirs();
         }
         String filename = apkUrl.substring(apkUrl.lastIndexOf("/"),apkUrl.length());
-        String destinationFilePath =  dir + "/" + filename;
+        String destinationFilePath =  dir + filename;
         apkFile = new File(destinationFilePath);
         mProgressDialog.show();
         Intent intent = new Intent(mContext, DownloadService.class);
@@ -308,6 +317,8 @@ public class UpdateChecker {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
                         mContext.startActivity(intent);
+
+
                     }catch (Exception e){
 
                     }

@@ -33,7 +33,7 @@ public class TeamRecordAdapter extends BaseRecyclerViewAdapter {
 
     public TeamRecordAdapter(Context context) {
         this.mContext = context;
-        setArrayList(new ArrayList<>());
+        setArrayList(new ArrayList<Object>());
     }
 
     @Override
@@ -143,7 +143,8 @@ public class TeamRecordAdapter extends BaseRecyclerViewAdapter {
                 R.layout.item_matchfight, parent, false);
         view.setOnClickListener(this);
 
-        view.setBackground(mContext.getResources().getDrawable(R.color.colorAppBgLight));
+
+        view.setBackgroundColor(mContext.getResources().getColor(R.color.colorAppBgLight));
 
         final ImageView img1 = (ImageView)view.findViewById(R.id.img1);
         img1.setOnClickListener(new View.OnClickListener() {
