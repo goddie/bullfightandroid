@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.santao.bullfight.R;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.event.UserEvent;
 import com.santao.bullfight.model.LeagueRecord;
 import com.santao.bullfight.model.MatchFight;
 import com.santao.bullfight.widget.CircleTransform;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public class LeagueScoreAdapter extends BaseRecyclerViewAdapter {
 
@@ -44,6 +46,7 @@ public class LeagueScoreAdapter extends BaseRecyclerViewAdapter {
         if(!HttpUtil.isNullOrEmpty(entity.getTeam().getAvatar()))
         {
             Picasso.with(mContext).load(HttpUtil.BASE_URL +entity.getTeam().getAvatar()).transform(new CircleTransform()).placeholder(R.mipmap.holder).into(itemViewHolder.img1);
+
         }else
         {
             Picasso.with(mContext).load(R.mipmap.holder).transform(new CircleTransform())
@@ -65,6 +68,17 @@ public class LeagueScoreAdapter extends BaseRecyclerViewAdapter {
         final View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.item_league_score, parent, false);
         view.setOnClickListener(this);
+
+//        final ImageView img1 = (ImageView)view.findViewById(R.id.img1);
+//        img1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                UserEvent event = new UserEvent(UserEvent.USER_DETAIL);
+//                event.setData(img1.getTag());
+//                EventBus.getDefault().post(event);
+//            }
+//        });
 
         return new ItemViewHolder(view);
     }

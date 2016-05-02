@@ -1,6 +1,7 @@
 package com.santao.bullfight.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.content.ContextCompat;
@@ -17,10 +18,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
+import com.santao.bullfight.activity.UserDetailActivity;
 import com.santao.bullfight.adapter.LeagueTotalAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.model.DataUser;
+import com.santao.bullfight.model.LeagueRecord;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
 
 import org.json.JSONArray;
@@ -100,13 +103,16 @@ public class LeagueTotalFragment extends BaseFragment {
 
             @Override
             public void onItemClick(View view, Object id) {
-//                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
-//                intent.putExtra("id", id.toString());
-//
-//
-//                //Log.d("","id:"+id);
-//                //leagueListAdapter.getArrayList().get(id);
-//                startActivity(intent);
+
+                DataUser dataUser = (DataUser)id;
+
+                Intent intent = new Intent(getActivity(), UserDetailActivity.class);
+                intent.putExtra("user", dataUser.getUser());
+
+
+                //Log.d("","id:"+id);
+                //leagueListAdapter.getArrayList().get(id);
+                startActivity(intent);
             }
         });
 

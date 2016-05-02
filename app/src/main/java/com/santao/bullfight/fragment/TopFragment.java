@@ -70,7 +70,7 @@ public class TopFragment extends BaseFragment {
             topListener.onTopFinish();
         }catch (Exception e)
         {
-            Log.e(getString(R.string.app_name),e.getMessage());
+            //Log.e(getString(R.string.app_name),e.getMessage());
         }
     }
 

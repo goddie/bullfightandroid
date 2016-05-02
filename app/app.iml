@@ -100,8 +100,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="support-v4-23.2.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-transformations-2.1.0" level="project" />
-    <orderEntry type="library" exported="" name="butterknife-7.0.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
+    <orderEntry type="library" exported="" name="butterknife-7.0.1" level="project" />
     <orderEntry type="library" exported="" name="design-23.2.0" level="project" />
     <orderEntry type="library" exported="" name="baseLibrary-1.0-rc5" level="project" />
     <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />

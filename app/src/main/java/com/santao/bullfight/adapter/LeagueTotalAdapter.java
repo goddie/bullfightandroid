@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.santao.bullfight.R;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.event.UserEvent;
 import com.santao.bullfight.model.DataUser;
 import com.santao.bullfight.model.LeagueRecord;
 import com.santao.bullfight.widget.CircleTransform;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by goddie on 16/4/4.
@@ -67,6 +69,17 @@ public class LeagueTotalAdapter extends BaseRecyclerViewAdapter {
         final View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.item_league_score, parent, false);
         view.setOnClickListener(this);
+
+//        final ImageView img1 = (ImageView)view.findViewById(R.id.img1);
+//        img1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                UserEvent event = new UserEvent(UserEvent.USER_DETAIL);
+//                event.setData(img1.getTag());
+//                EventBus.getDefault().post(event);
+//            }
+//        });
 
         return new ItemViewHolder(view);
     }

@@ -1,6 +1,7 @@
 package com.santao.bullfight.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,10 +17,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.santao.bullfight.R;
+import com.santao.bullfight.activity.TeamDetailActivity;
+import com.santao.bullfight.activity.UserDetailActivity;
 import com.santao.bullfight.adapter.LeagueScoreAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.event.UserEvent;
 import com.santao.bullfight.model.LeagueRecord;
+import com.santao.bullfight.model.User;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
 
 import org.json.JSONArray;
@@ -29,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 
 public class LeagueScoreFragment extends BaseFragment {
@@ -54,6 +60,7 @@ public class LeagueScoreFragment extends BaseFragment {
 
     @Override
     protected void initAllMembersView(Bundle savedInstanceState) {
+       // EventBus.getDefault().register(this);
 
         Bundle bundle = getArguments();
         if(bundle!=null){
@@ -99,13 +106,16 @@ public class LeagueScoreFragment extends BaseFragment {
 
             @Override
             public void onItemClick(View view, Object id) {
-//                Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
-//                intent.putExtra("id", id.toString());
-//
-//
-//                //Log.d("","id:"+id);
-//                //leagueListAdapter.getArrayList().get(id);
-//                startActivity(intent);
+
+                LeagueRecord leagueRecord = (LeagueRecord)id;
+
+                Intent intent = new Intent(getActivity(), TeamDetailActivity.class);
+                intent.putExtra("team", leagueRecord.getTeam());
+
+
+                //Log.d("","id:"+id);
+                //leagueListAdapter.getArrayList().get(id);
+                startActivity(intent);
             }
         });
 
@@ -131,6 +141,13 @@ public class LeagueScoreFragment extends BaseFragment {
         getData();
     }
 
+    @Override
+    public void onDestroyView() {
+
+        super.onDestroyView();
+
+        EventBus.getDefault().unregister(this);
+    }
 
     private void getData()
     {
@@ -170,5 +187,27 @@ public class LeagueScoreFragment extends BaseFragment {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
         BaseApplication.getHttpQueue().add(stringRequest);
     }
+
+
+//    public void onEventMainThread(UserEvent event) {
+//
+//        if(event.getEventName().equals(UserEvent.USER_DETAIL))
+//        {
+//            User user = (User)event.getData();
+//
+//            if(user==null)
+//            {
+//                return;
+//            }
+//            Intent intent = new Intent(getActivity(), UserDetailActivity.class);
+//
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("user",user);
+//            intent.putExtras(bundle);
+//
+//            startActivity(intent);
+//        }
+//
+//    }
 
 }
