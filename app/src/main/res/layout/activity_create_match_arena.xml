@@ -11,6 +11,40 @@
         android:layout_height="48dp"
         android:id="@+id/topBar"
         android:background="@color/colorAppBgDark"></LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAppBgLight">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt1"
+            android:layout_weight="1"
+            android:hint="查找场地"
+            android:editable="true"
+            android:focusable="true"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:textColor="@color/colorAppBgLight" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="搜索"
+            android:id="@+id/btn1"
+            android:background="@mipmap/shared_btn_small"
+            android:textColor="@color/colorAppFont"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:background="@null"

@@ -81,7 +81,7 @@ public class MatchInfoUserAdapter extends BaseRecyclerViewAdapter {
         }
 
 
-        itemViewHolder.itemView.setTag(arr);
+        itemViewHolder.itemView.setTag(host);
 
     }
 

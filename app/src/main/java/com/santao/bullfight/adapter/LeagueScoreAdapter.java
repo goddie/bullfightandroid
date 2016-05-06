@@ -56,6 +56,7 @@ public class LeagueScoreAdapter extends BaseRecyclerViewAdapter {
         itemViewHolder.txt2.setText(String.valueOf(entity.getWin()));
         itemViewHolder.txt3.setText(String.valueOf(entity.getLose()));
         itemViewHolder.txt4.setText(String.valueOf(entity.getScore()));
+        itemViewHolder.txt5.setText(entity.getTeam().getName());
 
         itemViewHolder.itemView.setTag(entity);
 
@@ -97,6 +98,9 @@ public class LeagueScoreAdapter extends BaseRecyclerViewAdapter {
 
         @Bind(R.id.txt4)
         TextView txt4;
+
+        @Bind(R.id.txt5)
+        TextView txt5;
 
 
         public ItemViewHolder(View view) {

@@ -35,6 +35,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -115,8 +117,21 @@ public class RegThreeActivity extends BaseAppCompatActivity {
     {
         User user = baseApplication.getLoginUser();
 
-        String position = txtPosition.getText().toString();
-        String city = txtCity.getText().toString();
+        String position = null;
+        try {
+            position = URLEncoder.encode(txtPosition.getText().toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        String city = null;
+        try {
+            city = URLEncoder.encode(txtCity.getText().toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         String uid = user.getId().toString();
 
 //        if(user==null || HttpUtil.isNullOrEmpty(position) || HttpUtil.isNullOrEmpty(city) || HttpUtil.isNullOrEmpty(uid))

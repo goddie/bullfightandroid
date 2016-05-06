@@ -21,6 +21,8 @@ import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
 import com.santao.bullfight.R;
 import com.santao.bullfight.adapter.NewsListAdapter;
+import com.santao.bullfight.core.Utils;
+import com.santao.bullfight.event.PageEvent;
 import com.santao.bullfight.fragment.LeagueAssistFragment;
 import com.santao.bullfight.fragment.LeagueFightFragment;
 import com.santao.bullfight.fragment.LeagueReboundFragment;
@@ -28,6 +30,7 @@ import com.santao.bullfight.fragment.LeagueScoreFragment;
 import com.santao.bullfight.fragment.LeagueTotalFragment;
 import com.santao.bullfight.fragment.NewsFragment;
 import com.santao.bullfight.model.Article;
+import com.santao.bullfight.model.User;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
 import com.santao.bullfight.widget.TabButton;
 
@@ -137,6 +140,21 @@ public class NewsActivity extends BaseAppCompatActivity {
                 switchContent(mContent, fragment2);
                 break;
             case R.id.btn_right:
+
+
+                User user = Utils.getLocalUser(getApplicationContext());
+
+                if(user ==null)
+                {
+
+                    left.setSelected(true);
+                    switchContent(mContent, fragment1);
+
+                    baseApplication.getLoginUser();
+
+                    return;
+                }
+
                 right.setSelected(true);
                 switchContent(mContent, fragment3);
                 break;

@@ -166,6 +166,9 @@ public class CreateMatchFourActivity extends BaseAppCompatActivity {
     public void freeClick()
     {
 
+        matchFight.setJudge(0);
+        matchFight.setDataRecord(0);
+        matchFight.setIsPay(1);
 
         Intent intent = new Intent(CreateMatchFourActivity.this, CreateMatchFiveActivity.class);
 

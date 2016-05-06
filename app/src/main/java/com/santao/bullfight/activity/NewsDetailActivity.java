@@ -94,14 +94,29 @@ public class NewsDetailActivity extends BaseAppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuItem.OnMenuItemClickListener handler = new MenuItem.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getTitle() == "保存到手机") {
-                    new SaveImage().execute(); // Android 4.0以后要使用线程来访问网络
+                if (item.getTitle() == "保存小图到手机") {
+                    new SaveImage(0).execute(); // Android 4.0以后要使用线程来访问网络
                 } else {
                     return false;
                 }
                 return true;
             }
         };
+
+
+        MenuItem.OnMenuItemClickListener handler2 = new MenuItem.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getTitle() == "保存原图到手机") {
+                    new SaveImage(1).execute(); // Android 4.0以后要使用线程来访问网络
+                } else {
+                    return false;
+                }
+                return true;
+            }
+        };
+
+
+
         if (v instanceof WebView) {
             WebView.HitTestResult result = ((WebView) v).getHitTestResult();
             if (result != null) {
@@ -109,7 +124,8 @@ public class NewsDetailActivity extends BaseAppCompatActivity {
                 if (type == WebView.HitTestResult.IMAGE_TYPE || type == WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
                     imgurl = result.getExtra();
                     menu.setHeaderTitle("提示");
-                    menu.add(0, v.getId(), 0, "保存到手机").setOnMenuItemClickListener(handler);
+                    menu.add(0, v.getId(), 0, "保存小图到手机").setOnMenuItemClickListener(handler);
+                    menu.add(0, v.getId(), 0, "保存原图到手机").setOnMenuItemClickListener(handler2);
                 }
             }
         }
@@ -122,6 +138,14 @@ public class NewsDetailActivity extends BaseAppCompatActivity {
      *
      */
     private class SaveImage extends AsyncTask<String, Void, String> {
+
+        private int type = 0;
+
+        public  SaveImage(int type)
+        {
+            this.type = type;
+        }
+
         @Override
         protected String doInBackground(String... params) {
             String result = "";
@@ -131,8 +155,19 @@ public class NewsDetailActivity extends BaseAppCompatActivity {
                 if (!file.exists()) {
                     file.mkdirs();
                 }
+
+
+
+
                 int idx = imgurl.lastIndexOf(".");
                 String ext = imgurl.substring(idx);
+
+                String pref = "";
+                if(type==1)
+                {
+                    imgurl = imgurl.substring(0,imgurl.indexOf("_"))+ext;
+                }
+
                 file = new File(sdcard + "/Download/" + new Date().getTime() + ext);
                 InputStream inputStream = null;
                 URL url = new URL(imgurl);

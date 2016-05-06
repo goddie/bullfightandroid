@@ -133,7 +133,17 @@ public class MatchTeamFragment extends BaseFragment {
                 //未开始
                 if(entity.getStatus()==1)
                 {
+                    Intent intent = new Intent(getActivity(), MatchDetailActivity.class);
+                    //intent.putExtra("id", id.toString());
 
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("matchfight",entity);
+
+                    intent.putExtras(bundle);
+
+                    //Log.d("","id:"+id);
+                    //leagueListAdapter.getArrayList().get(id);
+                    startActivity(intent);
                 }
 
 

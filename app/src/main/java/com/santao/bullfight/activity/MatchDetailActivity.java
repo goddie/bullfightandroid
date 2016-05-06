@@ -7,11 +7,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
 import com.santao.bullfight.R;
+import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.core.Utils;
 import com.santao.bullfight.fragment.LeagueAssistFragment;
 import com.santao.bullfight.fragment.LeagueFightFragment;
 import com.santao.bullfight.fragment.LeagueReboundFragment;
@@ -22,9 +31,16 @@ import com.santao.bullfight.fragment.MatchInfoMessageFragment;
 import com.santao.bullfight.fragment.MatchInfoTeamFragment;
 import com.santao.bullfight.fragment.MatchInfoUserFragment;
 import com.santao.bullfight.model.MatchFight;
+import com.santao.bullfight.model.User;
 import com.santao.bullfight.widget.CircleTransform;
 import com.santao.bullfight.widget.TabButton;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -83,6 +99,8 @@ public class MatchDetailActivity extends BaseAppCompatActivity {
     TabButton tab4;
 
 
+    @Bind(R.id.btn1)
+    Button btn1;
 
 
     private Fragment mContent;
@@ -97,6 +115,7 @@ public class MatchDetailActivity extends BaseAppCompatActivity {
 
     MatchFight entity=null;
 
+    private Boolean isLeader = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +161,7 @@ public class MatchDetailActivity extends BaseAppCompatActivity {
 
         tab1.setSelected(true);
 
+        checkUser();
     }
 
 
@@ -236,6 +256,7 @@ public class MatchDetailActivity extends BaseAppCompatActivity {
         {
             Picasso.with(getApplicationContext()).load(R.mipmap.holder).transform(new CircleTransform())
                     .into(img1);
+
         }
 
         if(null!=entity.getGuest() && !HttpUtil.isNullOrEmpty(entity.getGuest().getAvatar()))
@@ -255,43 +276,179 @@ public class MatchDetailActivity extends BaseAppCompatActivity {
             txtTitle.setText(entity.getArena().getName().toString());
         }
 
-        txtScore.setText(String.valueOf((int) entity.getHostScore())+":"+String.valueOf((int)entity.getGuestScore()));
+
         txtDate.setText( HttpUtil.getDate(entity.getStart()) );
 
 
         //未接招
         if(entity.getStatus()==0)
         {
+            txtScore.setText("未接招");
             txtTop.setText("未接招");
             imgTop.setImageResource(R.mipmap.shared_icon_badge_unknow);
-            txtScore.setVisibility(View.GONE);
-            txtTeam2.setVisibility(View.GONE);
+
+            txtTeam2.setText("");
 
             Picasso.with(getApplicationContext()).load(R.mipmap.feed_team_unknown).transform(new CircleTransform())
                     .into(img2);
+
+            btn1.setVisibility(View.VISIBLE);
 
         }
 
         //未开始
         if(entity.getStatus()==1)
         {
-
+            txtScore.setText("未开始");
             txtTop.setText("未开始");
             imgTop.setImageResource(R.mipmap.shared_icon_badge_active);
+
+            btn1.setVisibility(View.GONE);
         }
 
 
         //已结束
         if(entity.getStatus()==2)
         {
-
+            txtScore.setText(String.valueOf((int) entity.getHostScore()) + ":" + String.valueOf((int) entity.getGuestScore()));
             txtTop.setText("已结束");
             imgTop.setImageResource(R.mipmap.shared_icon_badge_inactive);
+
+            btn1.setVisibility(View.GONE);
         }
 
 
         txtNo1.setText(String.valueOf(entity.getTeamSize()));
         txtNo2.setText(String.valueOf(entity.getTeamSize()));
+
+
+    }
+
+
+    //是否为队长
+    void checkUser()
+    {
+
+        User user = Utils.getLocalUser(getApplicationContext());
+
+        if(user ==null)
+        {
+            return ;
+        }
+
+        String url = HttpUtil.getAbsoluteUrl("team/json/checkuser?uid=" + user.getId() );
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                ArrayList<Object> list = new ArrayList<Object>();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int code = jsonObject.getInt("code");
+
+                    if(code==1)
+                    {
+                        isLeader = true;
+                        setButton();
+                    }
+
+                    //resize();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        BaseApplication.getHttpQueue().add(stringRequest);
+    }
+
+
+    void setButton()
+    {
+        if(isLeader)
+        {
+           btn1.setText("应战");
+        }else
+        {
+           btn1.setText("通知队长");
+        }
+    }
+
+
+    @OnClick({R.id.btn1})
+    public void BtnClick()
+    {
+
+        User user = baseApplication.getLoginUser();
+
+        if(isLeader)
+        {
+
+
+            Intent intent = new Intent(MatchDetailActivity.this,MatchAcceptActivity.class);
+
+            //intent.putExtra("id", id.toString());
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("matchfight",entity);
+
+            intent.putExtras(bundle);
+
+            //Log.d("","id:"+id);
+            //leagueListAdapter.getArrayList().get(id);
+            startActivity(intent);
+
+
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("team",team);
+//
+//            intent.putExtras(bundle);
+
+        }else
+        {
+            String url = HttpUtil.getAbsoluteUrl("message/json/sendtoteam?uid=" + user.getId() +"&mfid="+ entity.getId());
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    Gson gson = new Gson();
+                    ArrayList<Object> list = new ArrayList<Object>();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        int code = jsonObject.getInt("code");
+
+                        if(code==1)
+                        {
+                            Toast.makeText(MatchDetailActivity.this, getString(R.string.action_success), Toast.LENGTH_SHORT).show();
+                        }
+
+                        //resize();
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            BaseApplication.getHttpQueue().add(stringRequest);
+        }
+
 
 
     }

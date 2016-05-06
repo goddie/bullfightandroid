@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -26,15 +28,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
-public class CreateMatchArenaActivity extends AppCompatActivity {
+public class CreateMatchArenaActivity extends BaseAppCompatActivity {
 
 
+    @Bind(R.id.txt1)
+    EditText txt1;
+
+    @Bind(R.id.btn1)
+    Button btn1;
 
     @Bind(R.id.arenaList)
     RecyclerView recyclerView;
@@ -56,6 +66,7 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        initTopBar();
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -79,11 +90,17 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int lastVisibleItem = 0;
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                //Log.d("test", "StateChanged = " + newState);
 
+                //Log.d("", "newState:" + newState + " " + adpater.getItemCount());
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == adapter.getItemCount()) {
+                    getData();
+                }
 
             }
 
@@ -92,20 +109,8 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 //Log.d("test", "onScrolled");
 
-                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-                if (lastVisibleItemPosition + 1 == adapter.getItemCount()) {
-                    //Log.d("test", "loading executed");
-
-                    boolean isRefreshing = swipeRefreshLayout.isRefreshing();
-                    if (isRefreshing) {
-                        adapter.notifyItemRemoved(adapter.getItemCount());
-                        return;
-                    }
-                    if (!isLoadingMore) {
-                        isLoadingMore = true;
-                        getData();
-                    }
-                }
+                lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                //Log.d("","lastVisibleItem"+lastVisibleItem);
             }
         });
 
@@ -133,6 +138,11 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onTopFinish() {
+        super.onTopFinish();
+        setTitle("选择场地");
+    }
 
     private void getData() {
 
@@ -169,4 +179,54 @@ public class CreateMatchArenaActivity extends AppCompatActivity {
         });
         BaseApplication.getHttpQueue().add(stringRequest);
     }
+
+
+    @OnClick({R.id.btn1})
+    public  void btnClick()
+    {
+        String key = "";
+
+        try {
+            key = URLEncoder.encode(txt1.getText().toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+        String url = HttpUtil.getAbsoluteUrl("arena/json/search?key="+ key);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                Gson gson = new Gson();
+                ArrayList<Object> list = new ArrayList<Object>();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Arena entity = gson.fromJson(jsonArray.get(i).toString(), Arena.class);
+                        list.add(entity);
+                    }
+                    adapter.clear();
+                    adapter.addArrayList(list);
+                    isLoadingMore = false;
+                    page=1;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+        BaseApplication.getHttpQueue().add(stringRequest);
+    }
+
+
 }

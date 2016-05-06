@@ -54,7 +54,7 @@ public class LeagueAssistAdapter extends BaseRecyclerViewAdapter {
         itemViewHolder.txt2.setText(String.valueOf(entity.getPlays()));
         itemViewHolder.txt3.setText(String.valueOf(entity.getAssist()));
         itemViewHolder.txt4.setText(String.valueOf(entity.getAvgassist()));
-
+        itemViewHolder.txt5.setText(entity.getUser().getNickname());
         itemViewHolder.itemView.setTag(entity);
 
         //Log.d("",league.getId().toString());
@@ -96,6 +96,9 @@ public class LeagueAssistAdapter extends BaseRecyclerViewAdapter {
         @Bind(R.id.txt4)
         TextView txt4;
 
+
+        @Bind(R.id.txt5)
+        TextView txt5;
 
         public ItemViewHolder(View view) {
             super(view);

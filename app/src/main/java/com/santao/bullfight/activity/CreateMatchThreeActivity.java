@@ -19,6 +19,8 @@ import com.santao.bullfight.event.BaseEvent;
 import com.santao.bullfight.model.Arena;
 import com.santao.bullfight.model.MatchFight;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -132,7 +134,17 @@ public class CreateMatchThreeActivity extends BaseAppCompatActivity {
             matchFight.setStart(dateStart.getTime());
             matchFight.setEnd(dateEnd.getTime());
 
-            matchFight.setContent(txtInfo.getText().toString());
+
+            String info ="";
+
+            try {
+                info = URLEncoder.encode(txtInfo.getText().toString(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+
+            matchFight.setContent(info);
 
             Intent intent = new Intent(CreateMatchThreeActivity.this, CreateMatchFourActivity.class);
 

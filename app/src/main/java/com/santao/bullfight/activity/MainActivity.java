@@ -282,9 +282,7 @@ public class MainActivity extends BaseAppCompatActivity implements OnClickListen
                 break;
         }
 
-//        PageEvent event = new PageEvent(PageEvent.PAGE_CHANGE);
-//        event.setData(arg0);
-//        EventBus.getDefault().post(event);
+
 
     }
 

@@ -103,13 +103,13 @@ public class MatchInfoTeamFragment extends BaseFragment {
         }
 
         ArrayList<String> li =new ArrayList<String>();
-        li.add(String.valueOf(df.format(host.getPlayCount())));
+        li.add((int)host.getPlayCount()+" 战 "+(int)host.getWin()+" 胜 ");
         li.add("历史战绩");
         if(guest==null)
         {
             li.add("");
         }else {
-            li.add(String.valueOf(df.format(guest.getPlayCount())));
+            li.add((int)guest.getPlayCount()+" 战 "+(int)guest.getWin()+" 胜 ");
         }
         list.add(li);
 

@@ -9,8 +9,8 @@ public class HttpUtil {
     public static final String BASE_URL = "http://app.santaotech.com:8080/";
     public static final String BASE_URL_APP  = "http://app.santaotech.com:8080/bullfight/";
 
-//    public static final String BASE_URL = "http://192.168.1.83:8080/";
-//    public static final String BASE_URL_APP  = "http://192.168.1.83:8080/bullfight/";
+//    public static final String BASE_URL = "http://192.168.0.116:8080/";
+//    public static final String BASE_URL_APP  = "http://192.168.0.116:8080/bullfight/";
 
 
     public static String getAbsoluteUrl(String relativeUrl) {

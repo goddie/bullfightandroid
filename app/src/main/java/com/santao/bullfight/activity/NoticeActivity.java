@@ -21,6 +21,7 @@ import com.santao.bullfight.R;
 import com.santao.bullfight.adapter.NoticeAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.model.MatchFight;
 import com.santao.bullfight.model.Message;
 import com.santao.bullfight.model.User;
 import com.santao.bullfight.widget.OnRecyclerViewItemClickListener;
@@ -103,12 +104,34 @@ public class NoticeActivity extends BaseAppCompatActivity {
             public void onItemClick(View view, Object id) {
 
 
+                /**
+                 * 消息类型
+                 * 1 通知队长
+                 * 2 邀请入会
+                 * 3 新闻回复
+                 * 4 约战回复
+                 * 5 约战评论
+                 */
                 Message entity = (Message) id;
 
                 updateRead(entity);
 
 
+                //通知应战
                 if (entity.getType() == 1) {
+
+                    MatchFight matchfight = entity.getMatchFight();
+                    Intent intent = new Intent(NoticeActivity.this, MatchDetailActivity.class);
+                    //intent.putExtra("id", id.toString());
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("matchfight",matchfight);
+
+                    intent.putExtras(bundle);
+
+                    //Log.d("","id:"+id);
+                    //leagueListAdapter.getArrayList().get(id);
+                    startActivity(intent);
 
                 }
 
@@ -119,6 +142,7 @@ public class NoticeActivity extends BaseAppCompatActivity {
                 }
 
 
+                //
                 if (entity.getType() == 3) {
 
                 }

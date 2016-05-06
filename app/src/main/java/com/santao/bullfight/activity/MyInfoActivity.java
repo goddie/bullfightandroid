@@ -86,7 +86,7 @@ public class MyInfoActivity extends BaseAppCompatActivity {
     EditText txt6;
 
     @Bind(R.id.txt7)
-    EditText txt7;
+    TextView txt7;
 
     @Bind(R.id.img1)
     ImageView img1;
@@ -96,6 +96,8 @@ public class MyInfoActivity extends BaseAppCompatActivity {
 
     private User user;
     private String[] items = new String[] { "选择相册图片", "拍照" };
+    private String[] positions = new String[] {"控球后卫", "得分后卫","小前锋","大前锋","中锋"};
+
     /* 请求码*/
     private static final int IMAGE_REQUEST_CODE = 0;
     private static final int CAMERA_REQUEST_CODE = 1;
@@ -139,6 +141,13 @@ public class MyInfoActivity extends BaseAppCompatActivity {
         super.onTopRightClick();
         save();
 
+    }
+
+
+    @OnClick({R.id.llPosition})
+    public void positionClick()
+    {
+        showPosition();
     }
 
 
@@ -470,6 +479,28 @@ public class MyInfoActivity extends BaseAppCompatActivity {
 
     }
 
+
+    private void showPosition() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("场上位置")
+                .setItems(positions, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        txt7.setText(positions[which]);
+
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+    }
 
 
 

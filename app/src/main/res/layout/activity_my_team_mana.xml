@@ -87,7 +87,9 @@
                         android:textColor="@color/colorAppFont"
                         android:layout_gravity="center"
                         android:layout_marginRight="10dp"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -97,7 +99,6 @@
                         android:background="@mipmap/shared_btn_small"
                         android:textColor="@color/colorAppFont"
                         android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
                         android:textSize="14sp" />
                 </LinearLayout>
 

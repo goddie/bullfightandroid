@@ -57,6 +57,7 @@ public class LeagueTotalAdapter extends BaseRecyclerViewAdapter {
         itemViewHolder.txt2.setText(String.valueOf(entity.getPlays()));
         itemViewHolder.txt3.setText(String.valueOf(entity.getScoring()));
         itemViewHolder.txt4.setText(String.valueOf(entity.getAvgscoring()));
+        itemViewHolder.txt5.setText(entity.getUser().getNickname());
 
         itemViewHolder.itemView.setTag(entity);
 
@@ -99,6 +100,8 @@ public class LeagueTotalAdapter extends BaseRecyclerViewAdapter {
         @Bind(R.id.txt4)
         TextView txt4;
 
+        @Bind(R.id.txt5)
+        TextView txt5;
 
         public ItemViewHolder(View view) {
             super(view);
