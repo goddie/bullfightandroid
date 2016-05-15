@@ -30,7 +30,8 @@
                 android:id="@+id/txt5"
                 android:textSize="14sp"
                 android:textColor="#ffffff"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:lines="2" />
         </LinearLayout>
 
         <TextView

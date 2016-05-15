@@ -21,6 +21,7 @@ import com.santao.bullfight.R;
 import com.santao.bullfight.adapter.NoticeAdapter;
 import com.santao.bullfight.core.BaseApplication;
 import com.santao.bullfight.core.HttpUtil;
+import com.santao.bullfight.model.Commet;
 import com.santao.bullfight.model.MatchFight;
 import com.santao.bullfight.model.Message;
 import com.santao.bullfight.model.User;
@@ -142,8 +143,19 @@ public class NoticeActivity extends BaseAppCompatActivity {
                 }
 
 
-                //
+                //新闻
                 if (entity.getType() == 3) {
+
+                    Commet commet = entity.getCommet();
+
+                    Intent intent = new Intent(NoticeActivity.this,CommetListActivity.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("aid",commet.getArticle().getId().toString());
+
+                    intent.putExtras(bundle);
+
+                    startActivity(intent);
 
                 }
 

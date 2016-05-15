@@ -213,33 +213,76 @@ public class MatchInfoUserFinishFragment extends BaseFragment {
 
 
 
-                    int s = Math.min(arr1.size(),arr2.size());
+                    int s = Math.max(arr1.size(),arr2.size());
 
-
-                    for (int i=0;i<s;i++)
+                    if(arr2.size()==0)
                     {
-                        ArrayList<Object> tmp = new ArrayList<Object>();
+                        s = arr1.size();
 
-                        tmp.add(arr1.get(i));
-                        tmp.add(arr2.get(i));
+                        for (int i=0;i<s;i++)
+                        {
+                            ArrayList<Object> tmp = new ArrayList<Object>();
 
-                        list.add(tmp);
-                    }
+                            tmp.add(arr1.get(i));
+                            tmp.add(null);
+                            list.add(tmp);
+                        }
 
-                    if(arr1.size()>arr2.size())
-                    {
-                        ArrayList<Object> tmp = new ArrayList<Object>();
-                        tmp.add(arr1.get(arr1.size()-1));
-                        tmp.add(null);
-                        list.add(tmp);
 
                     }else
                     {
-                        ArrayList<Object> tmp = new ArrayList<Object>();
-                        tmp.add(null);
-                        tmp.add(arr2.get(arr2.size()-1));
-                        list.add(tmp);
+                        for (int i=0;i<s;i++)
+                        {
+                            ArrayList<Object> tmp = new ArrayList<Object>();
+
+                            if(i<arr1.size())
+                            {
+                                tmp.add(arr1.get(i));
+                            }else
+                            {
+                                tmp.add(null);
+                            }
+
+                            if(i<arr2.size())
+                            {
+                                tmp.add(arr2.get(i));
+                            }else
+                            {
+                                tmp.add(null);
+                            }
+
+
+
+                            list.add(tmp);
+                        }
+
                     }
+
+
+//                    for (int i=0;i<s;i++)
+//                    {
+//                        ArrayList<Object> tmp = new ArrayList<Object>();
+//
+//                        tmp.add(arr1.get(i));
+//                        tmp.add(arr2.get(i));
+//
+//                        list.add(tmp);
+//                    }
+//
+//                    if(arr1.size()>arr2.size())
+//                    {
+//                        ArrayList<Object> tmp = new ArrayList<Object>();
+//                        tmp.add(arr1.get(arr1.size()-1));
+//                        tmp.add(null);
+//                        list.add(tmp);
+//
+//                    }else
+//                    {
+//                        ArrayList<Object> tmp = new ArrayList<Object>();
+//                        tmp.add(null);
+//                        tmp.add(arr2.get(arr2.size()-1));
+//                        list.add(tmp);
+//                    }
 
 
 
